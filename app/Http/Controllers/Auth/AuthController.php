@@ -41,7 +41,20 @@ class AuthController extends Controller
 
         if ($user) {
             Auth::login($user);
-            return redirect()->route('dashboard.show');
+            switch (auth()->user()->role) {
+                case 'admin':
+                    return redirect()->intended('/dashboard');
+                    break;
+                case 'doctor':
+                    return redirect()->intended('/dashboard/doctor/workspace');
+                    break;
+                case 'author':
+                    return redirect()->intended('/dashboard/author/workspace');
+                    break;
+                default:
+                    return redirect()->intended('/dashboard/user/preview');
+                    break;
+            }
         } else {
             return redirect()->route('auth.show.register')->with('error', 'Gagal manambahkan akun');
         }
@@ -53,24 +66,25 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-
-            if (auth()->user()->role === 'admin') {
-
-                return redirect()->intended('/dashboard');
-
-            } else if (auth()->user()->role === 'doctor') {
-
-                return redirect()->intended('/dashboard/doctor/workspace');
-
-            } else {
-
-                return redirect()->intended('/dashboard/user/preview');
-
+            switch (auth()->user()->role) {
+                case 'admin':
+                    return redirect()->intended('/dashboard');
+                    break;
+                case 'doctor':
+                    return redirect()->intended('/dashboard/doctor/workspace');
+                    break;
+                case 'author':
+                    return redirect()->intended('/dashboard/author/workspace');
+                    break;
+                default:
+                    return redirect()->intended('/dashboard/user/preview');
+                    break;
             }
         }
 
         return redirect()->route('auth.show.login')->with('error', 'Email atau Password salah');
     }
+
 
     public function logout(Request $request)
     {

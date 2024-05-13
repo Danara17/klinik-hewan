@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterSpecialization;
+use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
 
 class MasterSpecializationController extends Controller
@@ -12,7 +13,14 @@ class MasterSpecializationController extends Controller
      */
     public function index()
     {
-        //
+
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Master Specialization';
+        return view('dashboard.admin.specialization.index', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'specialization' => MasterSpecialization::all(),
+        ]);
     }
 
     /**
@@ -20,7 +28,12 @@ class MasterSpecializationController extends Controller
      */
     public function create()
     {
-        //
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Create Master Specialization';
+        return view('dashboard.admin.specialization.create', [
+            'avatar' => $avatar,
+            'page_title' => $title
+        ]);
     }
 
     /**
@@ -28,7 +41,9 @@ class MasterSpecializationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        MasterSpecialization::create($request->only('name'));
+
+        return redirect()->route('specialization.index')->with('success', 'Specialisasi berhasil ditambahkan.');
     }
 
     /**

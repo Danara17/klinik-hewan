@@ -29,11 +29,18 @@ class DashboardController extends Controller
                 'page_title' => $title,
                 'job' => $job
             ]);
+        } else if (auth()->user()->role == 'author') {
+
+            return view('dashboard.author.index', [
+                'avatar' => $avatar,
+                'page_title' => $title
+            ]);
+        } else if (auth()->user()->role == 'user') {
+            return view('dashboard.guest.index', [
+                'avatar' => $avatar,
+                'page_title' => $title
+            ]);
         }
-
-
-
-
     }
 
     public function quick_start(Request $request)

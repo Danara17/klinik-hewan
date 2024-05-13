@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctor;
-use App\Models\MasterSpecialization;
+use App\Models\Categories;
+use App\Models\Post;
 use App\Models\User;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
-class DoctorController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = Doctor::all();
         $avatar = Gravatar::get(auth()->user()->email);
-        $title = 'Doctor';
-        return view('dashboard.admin.doctor.index', [
-            'avatar' => $avatar,
+        $title = 'Category';
+        $categories = Categories::all();
+        return view('dashboard.author.category.index', [
             'page_title' => $title,
-            'dataDoctor' => $user
+            'avatar' => $avatar,
+            'dataCategory' => $categories
         ]);
     }
 
@@ -30,15 +31,15 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        $user = User::where('role', 'user')->get();
-        $specialization = MasterSpecialization::all();
         $avatar = Gravatar::get(auth()->user()->email);
-        $title = 'Create Doctor';
-        return view('dashboard.admin.doctor.create', [
-            'avatar' => $avatar,
+        $title = 'Create Category';
+
+
+
+        return view('dashboard.author.category.create', [
             'page_title' => $title,
-            'dataUser' => $user,
-            'dataSpecialization' => $specialization,
+            'avatar' => $avatar,
+
         ]);
     }
 
@@ -47,27 +48,28 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $dataUser = User::findOrFail($request->id_name);
-
-        $dokter = new Doctor;
-        $dokter->user_id = $request->id_name;
-        $dokter->specialization_id = $request->specialization;
-        $dokter->name = $dataUser->name;
-        $dokter->address = $dataUser->address;
-        $dokter->phone = $dataUser->phone;
-        $dokter->save();
-        $dataUser->update([
-            'role' => 'doctor'
-        ]);
-        return redirect()->route('doctor.index')->with('success', 'Dokter berhasil ditambahkan');
+        $name = $request->input('name');
+        $data = ['name' => $name, 'slug' => Str::slug($name)];
+        Categories::create($data);
+        return redirect()->route('category.index')->with('success', 'Kategori Berhasil Ditambahkan.');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Create Category';
+        $category = Categories::findOrFail($id);
+        $posts = $category->posts;
+
+        return view('dashboard.author.post.show', [
+            'page_title' => $title,
+            'avatar' => $avatar,
+            'posts' => $posts
+        ]);
     }
 
     /**

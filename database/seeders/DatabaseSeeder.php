@@ -30,49 +30,54 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Inelty Adji Faizah',
-            'email' => 'ineltyadjiefaizah@gmail.com',
+            'name' => 'Muhammad Rafi Prabowo',
+            'email' => 'iydrafiprabowo@gmail.com',
             'password' => Hash::make('password'),
-            'role' => 'user',
-            'phone' => '081xxxxxxxxx',
+            'role' => 'admin',
+            'phone' => '081946708738',
             'address' => 'Pasuruan'
         ]);
 
         User::factory()->create([
-            'name' => 'Danny Lufry Widodo',
-            'email' => 'lufry0@gmail.com',
+            'name' => 'Geraldi Nathan Tommy Saputra',
+            'email' => 'geraldi.tommysaputra03@gmail.com',
             'password' => Hash::make('password'),
-            'role' => 'doctor',
-            'phone' => '081xxxxxxxxx',
+            'role' => 'author',
+            'phone' => '081255635633',
             'address' => 'Surabaya'
         ]);
 
-        MasterPetType::factory()->create([
-            'name' => 'Anjing'
+        User::factory()->create([
+            'name' => 'Jesia Esa Christanti',
+            'email' => 'jelitarosse01@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+            'phone' => '081255635633',
+            'address' => 'Surabaya'
         ]);
 
-        MasterPetType::factory()->create([
-            'name' => 'Kucing'
+        User::factory()->create([
+            'name' => 'M. Arya Suherman',
+            'email' => 'muhammadaryasuherman@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'author',
+            'phone' => '081255635633',
+            'address' => 'Surabaya'
         ]);
 
-        MasterSpecialization::factory()->create([
-            'name' => 'Groomer'
+        User::factory()->create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+            'phone' => '081255635633',
+            'address' => 'Surabaya'
         ]);
 
-        MasterSpecialization::factory()->create([
-            'name' => 'Sunater'
-        ]);
-
-        MasterSpecialization::factory()->create([
-            'name' => 'Operater'
-        ]);
-
-        Doctor::factory()->create([
-            'name' => 'Danny Lufry Widodo',
-            'user_id' => 3,
-            'specialization_id' => 2,
-            'address' => 'Surabaya',
-            'phone' => '081xxxxxxxxx'
+        $this->call([
+            SpecializationSeeder::class,
+            PetTypeSeeder::class,
+            CategorySeeder::class
         ]);
 
         InventoryCategory::factory()->create([  //1

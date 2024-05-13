@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->unsignedInteger('specialization_id');
             $table->foreign('specialization_id')->references('id')->on('master_specializations');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('address');
-            $table->string('phone');
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }

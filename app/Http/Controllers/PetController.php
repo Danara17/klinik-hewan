@@ -189,8 +189,18 @@ class PetController extends Controller
         return view('dashboard.doctor.pet.check', [
             'avatar' => $avatar,
             'page_title' => $title,
-            'pet' => $pet
+            'pet' => $pet,
+            'pet_id' => $id
         ]);
+    }
+
+    public function updateByDoctor(Request $request)
+    {
+        Pet::where('id', $request->pet_id)->update([
+            'age' => $request->age,
+            'weight' => $request->weight
+        ]);
+        return redirect()->back()->with('success', 'Informasi Pet behasil diperbarui.');
     }
 
 }

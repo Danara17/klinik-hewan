@@ -10,13 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('medicine_from_records', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable()->default(null);
             $table->unsignedInteger('medical_record_id');
+            $table->enum('status', ['waiting', 'success']);
             $table->foreign('medical_record_id')->references('id')->on('medical_records');
-            $table->unsignedInteger('medicine_id');
-            $table->foreign('medicine_id')->references('id')->on('medicines');
-            $table->integer('amount');
+            $table->double('total_amount');
+            $table->timestamp('payment_date');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('medicine_from_records');
+        Schema::dropIfExists('transactions');
     }
 };

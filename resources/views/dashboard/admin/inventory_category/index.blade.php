@@ -109,7 +109,7 @@
                         <td class="">{{ $item->name }}</td>
                         <td class="">
 
-                            <a href="{{ route('pet.edit', $item->id) }}"
+                            <a href=""
                                 class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
                                 <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -121,7 +121,7 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </a>
-                            <form action="{{ route('pet.destroy', $item->id) }}" method="POST" class="inline-block">
+                            <form action="" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button data-modal-target="popup-modal-{{ $item->id }}"

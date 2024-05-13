@@ -59,8 +59,8 @@ class User extends Authenticatable
         return $this->role === $role;
     }
 
-    public function isDoctor()
+    public function doctor()
     {
-        return $this->role === 'doctor';
+        return $this->belongsTo(Doctor::class);
     }
 }

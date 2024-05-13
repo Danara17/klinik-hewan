@@ -9,7 +9,7 @@
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
-                    <a href="{{ route('dashboard.show') }}"
+                    <a href="@if (auth()->user()->role == 'admin') {{ route('dashboard.show') }} @elseif (auth()->user()->role == 'doctor') {{ route('dashboard.show.doctor') }} @elseif (auth()->user()->role == 'author') {{ route('dashboard.show.author') }} @elseif (auth()->user()->role == 'user') {{ route('dashboard.show.user') }} @endif"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                         Dashboard
                     </a>
@@ -21,14 +21,14 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{ route('inventory_item.index') }}"
-                            class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Master
-                            Inventory Item</a>
+                        <a href="{{ route('post.index') }}"
+                            class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Post</a>
                     </div>
                 </li>
+
             </ol>
         </nav>
-        <a href="{{ route('inventory_item.create') }}"
+        <a href="{{ route('post.create') }}"
             class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-3.5 h-3.5 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                 height="24" fill="none" viewBox="0 0 20 20">
@@ -36,7 +36,7 @@
                     d="M5 12h14m-7 7V5" />
             </svg>
 
-            Add Item
+            Add New Post
         </a>
     </div>
 
@@ -92,40 +92,32 @@
         </div>
     @endif
 
-
-    <div class="overflow-x-auto dark:text-white">
+    <div class="overflow-x-auto
+                        dark:text-white">
         <table id="myTable" class="table-auto min-w-full dark:bg-gray-800">
             <thead>
                 <tr>
-                    <th class="px-4 py-2">Photo</th>
-                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Title</th>
+                    <th class="px-4 py-2">Author</th>
                     <th class="px-4 py-2">Category</th>
-                    <th class="px-4 py-2">Harga per Item</th>
-                    <th class="px-4 py-2">Stok</th>
+                    <th class="px-4 py-2">Published At</th>
                     <th class="px-4 py-2">Ops</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($items as $item)
+                @foreach ($post as $item)
                     <tr>
+                        <td>{{ $item->title }}</td>
+                        <td>{{ $item->author->name }}</td>
                         <td>
-                            <div class="h-32 w-32 overflow-hidden">
-                                @if ($item->photo)
-                                    <img src="{{ asset('storage/inventory_items/' . $item->photo) }}" alt="Item Photo"
-                                        class="h-full w-full object-cover">
-                                @else
-                                    <?php
-                                    $initial = strtoupper(substr($item->name, 0, 1));
-                                    $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($initial) . '&size=128&background=random';
-                                    ?>
-                                    <img src="{{ $avatarUrl }}" alt="Default Avatar" class="h-full w-full object-cover">
-                                @endif
-                            </div>
+                            @foreach ($item->categories as $category)
+                                <a href="#"
+                                    class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">
+                                    {{ $category->name }}
+                                </a>
+                            @endforeach
                         </td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->category->name }}</td>
-                        <td>Rp. {{ number_format($item->harga, 0, '.', '.') }}</td>
-                        <td>{{ $item->stok }} {{ $item->satuan }}</td>
+                        <td>{{ $item->getFormattedPublishedAtAttribute() }}</td>
                         <td></td>
                     </tr>
                 @endforeach

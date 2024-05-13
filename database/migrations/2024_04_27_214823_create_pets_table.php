@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->unsignedInteger('pet_type_id');
             $table->foreign('pet_type_id')->references('id')->on('master_pet_types');
             $table->integer('age');
-            $table->integer('weight');
+            $table->double('weight');
             $table->enum('sex', ['male', 'female']);
             $table->timestamps();
         });

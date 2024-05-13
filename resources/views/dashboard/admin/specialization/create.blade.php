@@ -16,9 +16,9 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{ route('admin.index') }}"
+                        <a href="{{ route('specialization.index') }}"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
-                            Admin
+                            Master Specialization
                         </a>
                     </div>
                 </li>
@@ -29,7 +29,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{ route('admin.create') }}"
+                        <a href="{{ route('specialization.create') }}"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Create</a>
                     </div>
                 </li>
@@ -39,29 +39,22 @@
 
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-500">
 
-    <form action="{{ route('admin.store') }}" method="POST">
+    <form action="{{ route('specialization.store') }}" method="POST">
 
         @csrf
 
         <div class="mb-3">
-            <label for="id_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih User</label>
-            <select id="id_user" name="id_name"
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Name Specialization
+            </label>
+            <input type="text" id="name" name="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Pilih User</option>
-                @foreach ($dataUser as $item)
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                @endforeach
-            </select>
-            @error('name')
-                <p class="text-xs text-red-500">{{ $message }}</p>
-            @enderror
         </div>
-
 
         <div class="flex justify-end my-10">
             <button type="submit"
                 class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Set Admin
+                Create Specialization
             </button>
         </div>
 

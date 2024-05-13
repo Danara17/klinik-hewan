@@ -21,14 +21,15 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{ route('inventory_item.index') }}"
-                            class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Master
-                            Inventory Item</a>
+                        <a href="{{ route('specialization.index') }}"
+                            class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
+                            Master Specialization
+                        </a>
                     </div>
                 </li>
             </ol>
         </nav>
-        <a href="{{ route('inventory_item.create') }}"
+        <a href="{{ route('specialization.create') }}"
             class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-3.5 h-3.5 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                 height="24" fill="none" viewBox="0 0 20 20">
@@ -36,7 +37,7 @@
                     d="M5 12h14m-7 7V5" />
             </svg>
 
-            Add Item
+            Create New Specialization
         </a>
     </div>
 
@@ -97,36 +98,19 @@
         <table id="myTable" class="table-auto min-w-full dark:bg-gray-800">
             <thead>
                 <tr>
-                    <th class="px-4 py-2">Photo</th>
                     <th class="px-4 py-2">Name</th>
-                    <th class="px-4 py-2">Category</th>
-                    <th class="px-4 py-2">Harga per Item</th>
-                    <th class="px-4 py-2">Stok</th>
-                    <th class="px-4 py-2">Ops</th>
+                    <th class="px-4 py-2">Created At</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($items as $item)
+                @foreach ($specialization as $item)
                     <tr>
                         <td>
-                            <div class="h-32 w-32 overflow-hidden">
-                                @if ($item->photo)
-                                    <img src="{{ asset('storage/inventory_items/' . $item->photo) }}" alt="Item Photo"
-                                        class="h-full w-full object-cover">
-                                @else
-                                    <?php
-                                    $initial = strtoupper(substr($item->name, 0, 1));
-                                    $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($initial) . '&size=128&background=random';
-                                    ?>
-                                    <img src="{{ $avatarUrl }}" alt="Default Avatar" class="h-full w-full object-cover">
-                                @endif
-                            </div>
+                            {{ $item->name }}
                         </td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->category->name }}</td>
-                        <td>Rp. {{ number_format($item->harga, 0, '.', '.') }}</td>
-                        <td>{{ $item->stok }} {{ $item->satuan }}</td>
-                        <td></td>
+                        <td>
+                            {{ $item->getFormattedCreatedAtAttribute() }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
