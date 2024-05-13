@@ -25,3 +25,13 @@ php artisan migrate
 ```bash
 php artisan db:seed
 ```
+
+- Instalasi React Depedencies
+
+```bash
+npm install
+```
+
+```bash
+npm run build
+```
