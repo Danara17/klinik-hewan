@@ -17,8 +17,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
+// Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
+Route::get('/', function () {
+    return Inertia::render('Home');
+});
 
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');
@@ -126,5 +130,4 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
             Route::resource('specialization', MasterSpecializationController::class);
         });
     });
-
 });
