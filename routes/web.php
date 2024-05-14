@@ -18,9 +18,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
 
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');

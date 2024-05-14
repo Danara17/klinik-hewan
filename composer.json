@@ -8,6 +8,7 @@
         "php": "^8.2",
         "creativeorange/gravatar": "^1.0",
         "enyo/dropzone": "^5.9",
+        "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9"
     },
