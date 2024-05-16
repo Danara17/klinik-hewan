@@ -5,17 +5,17 @@ export default {
     content: [
         flowbite.content(),
         "./resources/**/*.blade.php",
-        "./resources/**/*.js",
+        "./resources/**/*.jsx",
         "./resources/**/*.vue",
-        "./node_modules/flowbite/**/*.js",
+        "./node_modules/flowbite/**/*.jsx",
+        "./src/**/*.{js,jsx,ts,tsx}",
     ],
     plugins: [
         // ...
         flowbite.plugin(),
-        require("daisyui"),
         require("flowbite/plugin", {
             charts: true,
         }),
-        "./node_modules/flowbite/**/*.js",
+        "./node_modules/flowbite/**/*.jsx",
     ],
 };
