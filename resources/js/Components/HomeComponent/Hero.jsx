@@ -1,6 +1,6 @@
 import React from "react";
-import pet from "/public/static/bowl.png";
-import guk from "/public/static/guk.png";
+import pet from "/public/static/bowl.jpg";
+import guk from "/public/static/dokter.jpg";
 
 export default function Hero() {
     const loginRoute = () => {
@@ -32,24 +32,18 @@ export default function Hero() {
 
                         <div className="flex items-center gap-12">
                             <div className="hidden md:inline">
-                                <img src={guk} alt="" className="h-[32rem]" />
+                                <img src={guk} alt="" className="h-[30rem]" />
                             </div>
                             <div className="max-w-md">
                                 <h1 className="text-2xl font-bold text-blue-700 ">
                                     Layanan Konsultasi Hewan
                                 </h1>
                                 <p className="py-6 text-blue-600">
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Fugiat itaque quis cumque
-                                    illo, harum non animi! Tempore nostrum
-                                    repudiandae, repellendus tenetur ips
+                                Kami menawarkan konsultasi hewan oleh tim dokter hewan kami yang berpengalaman. Kami membantu pemilik memahami dan merawat hewan peliharaan mereka. Layanan kami mencakup kesehatan, nutrisi, perilaku, dan perawatan umum.
                                 </p>
 
                                 <p className="py-6 text-blue-600">
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Fugiat itaque quis cumque
-                                    illo, harum non animi! Tempore nostrum
-                                    repudiandae, repellendus tenetur ips
+                                Hubungi kami hari ini untuk membuat janji atau untuk mengetahui lebih lanjut tentang layanan konsultasi hewan kami. Kami berharap dapat bertemu dengan Anda dan hewan peliharaan Anda segera.
                                 </p>
                             </div>
                         </div>
@@ -57,20 +51,14 @@ export default function Hero() {
                         <div className="flex items-center gap-6">
                             <div className="max-w-md flex flex-col gap-2">
                                 <h1 className="text-2xl font-bold text-blue-700 ">
-                                    Layanan Konsultasi Hewan
+                                Pentingnya Kesehatan dan Mental Hewan Peliharaan
                                 </h1>
                                 <p className="py-6 text-blue-600">
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Fugiat itaque quis cumque
-                                    illo, harum non animi! Tempore nostrum
-                                    repudiandae, repellendus tenetur ips
+                                Kesehatan fisik dan mental hewan peliharaan sama pentingnya. Kesehatan fisik dapat dipantau melalui pemeriksaan rutin dan diet seimbang. Sementara itu, stres dan kecemasan dapat mempengaruhi kesehatan mental hewan peliharaan Anda.
                                 </p>
 
                                 <p className="py-6 text-blue-600">
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Fugiat itaque quis cumque
-                                    illo, harum non animi! Tempore nostrum
-                                    repudiandae, repellendus tenetur ips
+                                Hubungi kami untuk mengetahui lebih lanjut tentang bagaimana kami dapat membantu meningkatkan kesehatan dan kesejahteraan mental hewan peliharaan Anda. Kami berkomitmen untuk memberikan perawatan terbaik untuk hewan peliharaan Anda.
                                 </p>
                             </div>
                             <div className="flex  ">

@@ -6,10 +6,10 @@ export default function Footer() {
         <>
             <footer class="bg-white dark:bg-gray-900">
                 <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-                    <div class="md:flex md:justify-between">
+                    <div class="md:flex md:justify-between mx-14 mb-11">
                         <div class="mb-6 md:mb-0">
                             <a
-                                href="https://flowbite.com/"
+                                href="/"
                                 class="flex items-center"
                             >
                                 <img
@@ -83,18 +83,18 @@ export default function Footer() {
                                 </h2>
                                 <ul class="text-gray-500 dark:text-gray-400 font-medium">
                                     <li class="mb-4">
-                                        <a href="#" class="hover:underline">
+                                        <a href="https://maps.app.goo.gl/nsV348QTbj4vWkef8" class="hover:underline">
                                             Jalan Pegangsaan Timur No 56
                                         </a>
                                     </li>
                                     <li class="mb-4">
-                                        <a href="#" class="hover:underline">
-                                            (62)091823012
+                                        <a href="tel:(031) 8286155" class="hover:underline">
+                                        (031) 8286155
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="hover:underline">
-                                            PT-OtakKanan@gmail.com
+                                        <a href="mailto:info@otakkanan.co.id" class="hover:underline">
+                                        info@otakkanan.co.id
                                         </a>
                                     </li>
                                 </ul>
@@ -106,7 +106,7 @@ export default function Footer() {
                         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
                             © 2024{" "}
                             <a
-                                href="https://flowbite.com/"
+                                href="/"
                                 class="hover:underline"
                             >
                                 Pawspital™
