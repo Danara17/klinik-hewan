@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "../Components/HomeComponent/Navbar";
-import FaqContent from "../Components/FaqComponent/FaqContent";
+import ArticleContent from "../Components/ArticleComponent/ArticleContent";
 import Footer from "../Components/HomeComponent/Footer";
 
-export default function Faq() {
+export default function Article() {
     return (
         <>
             <Navbar />
-            <FaqContent />
+            <ArticleContent />
             <Footer />
         </>
     );

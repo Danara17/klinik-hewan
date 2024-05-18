@@ -19,9 +19,27 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
 // Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
+
 Route::get('/', function () {
     return Inertia::render('Home');
+});
+
+Route::get('/faq', function () {
+    return Inertia::render('Faq');
+});
+
+Route::get('/article', function () {
+    return Inertia::render('Article');
+});
+
+Route::get('/about', function () {
+    return Inertia::render('AboutUs');
 });
 
 
@@ -33,8 +51,6 @@ Route::post('/register', [AuthController::class, 'register'])->name('auth.regist
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
-
-
 
     // Profile
     Route::prefix('/profile')->group(function () {
