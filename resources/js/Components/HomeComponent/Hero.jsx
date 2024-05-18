@@ -12,7 +12,7 @@ export default function Hero() {
                 <div className="flex flex-col max-w-fit gap-10  justify-center items-center py-28">
                     <div className="flex flex-col gap-12 p-[42px]">
                         <div className=" flex justify-center items-center text-center ">
-                            <div className="max-w-xl flex flex-col mb-12 gap-6 justify-center items-center">
+                            <div className="max-w-xl flex flex-col mb-11 gap-5 justify-center items-center">
                                 <div className="flex flex-col">
                                     <h1 className="text-5xl font-bold text-blue-700 ">
                                         Konsultasi Digital Hewan
