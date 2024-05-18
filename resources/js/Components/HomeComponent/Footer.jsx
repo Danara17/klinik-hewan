@@ -30,7 +30,7 @@ export default function Footer() {
                                 <ul class="text-gray-500 dark:text-gray-400 font-medium">
                                     <li class="mb-4">
                                         <a
-                                            href="https://flowbite.com/"
+                                            href="/"
                                             class="hover:underline"
                                         >
                                             Beranda
@@ -38,7 +38,7 @@ export default function Footer() {
                                     </li>
                                     <li className="mb-4">
                                         <a
-                                            href="https://tailwindcss.com/"
+                                            href="/about"
                                             class="hover:underline"
                                         >
                                             Tentang Kami
@@ -46,7 +46,7 @@ export default function Footer() {
                                     </li>
                                     <li>
                                         <a
-                                            href="https://tailwindcss.com/"
+                                            href="/faq"
                                             class="hover:underline"
                                         >
                                             Pertanyaan Umum
