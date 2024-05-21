@@ -18,6 +18,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
 
 
 // Route::get('/', function () {
@@ -42,6 +43,10 @@ Route::get('/about', function () {
     return Inertia::render('AboutUs');
 });
 
+Route::prefix('/inertia')->group(function () {
+  Route::get('/login', [InertiaAuthController::class, 'login'])->name('inertia.login.view');
+  Route::post('/login', [InertiaAuthController::class, 'authenticate'])->name('authenticate');
+});
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');
 Route::get('/logout', [AuthController::class, 'logout']);

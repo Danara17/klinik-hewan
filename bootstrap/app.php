@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\Doctor;
 use App\Http\Middleware\EnsureUserHasRole;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
