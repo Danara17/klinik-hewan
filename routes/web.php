@@ -80,7 +80,10 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     // User Role
     Route::middleware('role:user')->group(function () {
         Route::prefix('/user/preview')->group(function () {
-            Route::get('', [DashboardController::class, 'index'])->name('dashboard.show.user');
+            // Route::get('', [DashboardController::class, 'index'])->name('dashboard.show.user');
+            Route::get('', function () {
+                return Inertia::render('Admin/Test');
+            })->name('dashboard.show.user');
         });
     });
 
