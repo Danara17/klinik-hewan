@@ -49,11 +49,11 @@
                 </div>
             </div>
         </a>
-        <div class="flex justify-between items-center mt-3">
+        <div class="flex justify-between items-center mt-3 mb-3">
             <div class="text-slate-500">
                 Created at {{ $item->getFormattedCreatedAtAttribute() }}
             </div>
-            <button id="dropdownMenuIconHorizontalButton" data-dropdown-toggle="dropdownDotsHorizontal"
+            <button id="dropdownMenuIconHorizontalButton" data-dropdown-toggle="dropdownDotsHorizontal-{{ $item->id }}"
                 class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 type="button">
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -64,7 +64,7 @@
             </button>
 
             <!-- Dropdown menu -->
-            <div id="dropdownDotsHorizontal"
+            <div id="dropdownDotsHorizontal-{{ $item->id }}"
                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownMenuIconHorizontalButton">
@@ -75,14 +75,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('prescription.create', $item->id) }}"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                             Create Recipe
                         </a>
                     </li>
                 </ul>
                 <div class="py-2">
-                    <a href="#"
+                    <a href="{{ route('medical_record.action', $item->id) }}"
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                         Set Action to this Pet
                     </a>
