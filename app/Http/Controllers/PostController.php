@@ -82,7 +82,18 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $categories = Categories::all();
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Edit Post';
+
+        return view('dashboard.author.post.edit', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'post' => $post,
+            'categories' => $categories
+            
+        ]);
     }
 
     /**
@@ -90,14 +101,48 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'slug' => 'required|string',
+            'title' => 'required|string',
+            'body' => 'required|string',
+            'categories' => 'nullable|array',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $category_ids = $request->input('categories', []);
+
+        // Update post data
+        $post->update([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'body' => $request->body,
+            'author_id' => auth()->user()->id,
+            'published_at' => Carbon::now(),
+        ]);
+
+        // Detach existing categories and attach new ones
+        if (!empty($category_ids)) {
+            $valid_category_ids = Categories::whereIn('id', $category_ids)->pluck('id')->toArray();
+            $post->categories()->sync($valid_category_ids);
+        } else {
+            $post->categories()->detach();
+        }
+
+        return redirect()->route('post.index')->with('success', 'Post updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->categories()->detach();
+        $post->delete();
+
+        return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
     }
 }

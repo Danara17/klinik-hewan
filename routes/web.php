@@ -19,13 +19,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
-// Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
-
 Route::get('/', function () {
     return Inertia::render('Home');
 });
@@ -41,7 +34,6 @@ Route::get('/article', function () {
 Route::get('/about', function () {
     return Inertia::render('AboutUs');
 });
-
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');
 Route::get('/logout', [AuthController::class, 'logout']);
