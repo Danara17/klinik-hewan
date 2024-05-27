@@ -99,38 +99,36 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        // Validate the request data
-        $request->validate([
-            'slug' => 'required|string',
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'categories' => 'nullable|array',
-        ]);
-
-        $post = Post::findOrFail($id);
-        $category_ids = $request->input('categories', []);
+        // Validate the request...
 
         // Update post data
-        $post->update([
-            'slug' => $request->slug,
-            'title' => $request->title,
-            'body' => $request->body,
-            'author_id' => auth()->user()->id,
-            'published_at' => Carbon::now(),
-        ]);
+        $post = Post::find($id);
+    $post->update([
+        'slug' => $request->slug,
+        'title' => $request->title,
+        'body' => $request->body,
+        'author_id' => auth()->user()->id,
+        'published_at' => Carbon::now(),
+    ]);
 
-        // Detach existing categories and attach new ones
-        if (!empty($category_ids)) {
-            $valid_category_ids = Categories::whereIn('id', $category_ids)->pluck('id')->toArray();
-            $post->categories()->sync($valid_category_ids);
-        } else {
-            $post->categories()->detach();
+    // Detach existing categories and attach new ones
+    $category_ids = $request->id_category ? explode(',', $request->id_category) : [];
+    if (!empty($category_ids)) {
+        $valid_category_ids = Categories::whereIn('id', $category_ids)->pluck('id')->toArray();
+        $post->categories()->sync($valid_category_ids);
+
+        // Update the timestamps in the pivot table
+        foreach ($valid_category_ids as $category_id) {
+            $post->categories()->updateExistingPivot($category_id, ['created_at' => now(), 'updated_at' => now()]);
         }
-
-        return redirect()->route('post.index')->with('success', 'Post updated successfully.');
+    } else {
+        $post->categories()->detach();
     }
+
+    return redirect()->route('post.index')->with('success', 'Post updated successfully.');
+}
 
 
 
