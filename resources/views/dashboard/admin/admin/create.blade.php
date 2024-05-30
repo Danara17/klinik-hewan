@@ -40,9 +40,7 @@
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-500">
 
     <form action="{{ route('admin.store') }}" method="POST">
-
         @csrf
-
         <div class="mb-3">
             <label for="id_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih User</label>
             <select id="id_user" name="id_name"

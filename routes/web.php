@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\InertiaAdminController;
 use App\Http\Controllers\InventoryCategoryController;
 use App\Http\Controllers\InventoryItemController;
 use App\Http\Controllers\MasterSpecializationController;
@@ -15,10 +16,32 @@ use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\PostCategoriesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
 
+Route::prefix('/inertia')->group(function () {
+  Route::prefix('/test')->group(function () {
+
+      //Specialization
+    Route::get('/admin/specialization/create', function (){
+        return Inertia::render('Dashboard/Admin/Specialization/Create', [
+            'user' => 'rafi'
+        ]);
+    });
+
+      //User
+     Route::get('/admin/user/create', function (){
+         $user = Auth::user();
+         return Inertia::render('Dashboard/Admin/User/Create', [
+
+         ]);
+     });
+  });
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -111,13 +134,11 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
 
         Route::get('', [DashboardController::class, 'index'])->name('dashboard.show');
 
-        Route::get('/quick_start/{page}', [DashboardController::class, 'quick_start'])->name('dashboard.quick_start');
-
         // User
         Route::prefix('/user')->group(function () {
             Route::get('', [UserController::class, 'index'])->name('user.index');
             Route::get('/create', [UserController::class, 'create'])->name('user.create');
-            Route::post('/store', [UserController::class, 'store'])->name('user.store');
+
         });
 
         // Admin
@@ -148,3 +169,4 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
         });
     });
 });
+

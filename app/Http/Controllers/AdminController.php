@@ -6,6 +6,8 @@ use App\Models\Admin;
 use App\Models\User;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use PhpParser\Node\Stmt\Return_;
 
 class AdminController extends Controller
 {
@@ -17,6 +19,8 @@ class AdminController extends Controller
         $user = User::where('role', 'admin')->get();
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Admin';
+
+
         return view('dashboard.admin.admin.index', [
             'avatar' => $avatar,
             'page_title' => $title,
