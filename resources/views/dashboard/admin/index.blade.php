@@ -225,10 +225,10 @@
                     <div class="font-semibold text-black dark:text-white mb-3">
                         Grafik Pasien
                     </div>
-                    <a href="{{ route('dashboard.quick_start', 1) }}"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Quick Start
-                    </a>
+{{--                    <a href="{{ route('dashboard.quick_start', 1) }}"--}}
+{{--                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">--}}
+{{--                        Quick Start--}}
+{{--                    </a>--}}
                 </div>
 
                 <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
