@@ -24,13 +24,16 @@ class DashboardController extends Controller
             ]);
         } else if (auth()->user()->role == 'doctor') {
             $info_doctor = Doctor::where('user_id', auth()->user()->id)->first();
-            $job = MedicalRecord::where('status', 'diperiksa')->where('doctor_id', $info_doctor->id)->get();
+            $job = MedicalRecord::with('pet') // Memuat relasi pet
+                ->where('status', 'diperiksa')
+                ->where('doctor_id', $info_doctor->id)
+                ->get();
             // return view('dashboard.doctor.index', [
             //     'avatar' => $avatar,
             //     'page_title' => $title,
             //     'job' => $job
             // ]);
-            return Inertia::render('Doctor/Index', [
+            return Inertia::render('Dashboard/Doctor/Index', [
                 'avatar' => $avatar,
                 'page_title' => $title,
                 'job' => $job->toArray()
