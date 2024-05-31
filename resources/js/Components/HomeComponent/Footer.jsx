@@ -61,7 +61,7 @@ export default function Footer() {
                                 <ul class="text-gray-500 dark:text-gray-400 font-medium">
                                     <li class="mb-4">
                                         <a
-                                            href="https://github.com/themesberg/flowbite"
+                                            href="https://github.com/themesberg/flowbite/ " target="_blank" rel="noopener noreferrer"
                                             class="hover:underline "
                                         >
                                             Github
@@ -69,7 +69,7 @@ export default function Footer() {
                                     </li>
                                     <li>
                                         <a
-                                            href="https://discord.gg/4eeurUVvTy"
+                                            href="https://discord.gg/4eeurUVvTy/ " target="_blank" rel="noopener noreferrer"
                                             class="hover:underline"
                                         >
                                             Discord
@@ -83,17 +83,17 @@ export default function Footer() {
                                 </h2>
                                 <ul class="text-gray-500 dark:text-gray-400 font-medium">
                                     <li class="mb-4">
-                                        <a href="https://maps.app.goo.gl/nsV348QTbj4vWkef8" class="hover:underline">
+                                        <a href="https://maps.app.goo.gl/nsV348QTbj4vWkef8/ " target="_blank" rel="noopener noreferrer" class="hover:underline">
                                             Jalan Pegangsaan Timur No 56
                                         </a>
                                     </li>
                                     <li class="mb-4">
-                                        <a href="tel:(031) 8286155" class="hover:underline">
+                                        <a href="tel:(031) 8286155/ " target="_blank" rel="noopener noreferrer" class="hover:underline">
                                         (031) 8286155
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="mailto:info@otakkanan.co.id" class="hover:underline">
+                                        <a href="mailto:info@otakkanan.co.id/ " target="_blank" rel="noopener noreferrer" class="hover:underline">
                                         info@otakkanan.co.id
                                         </a>
                                     </li>

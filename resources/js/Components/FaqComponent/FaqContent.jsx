@@ -47,7 +47,8 @@ export default function FaqContent() {
                 <div className="flex flex-col md:flex-row gap-20 -[42px]">
                     <div className="border rounded-lg shadow-lg flex flex-col gap-1 p-7">
                         <h1 className="text-3xl font-bold text-center mt-[-18px] mb-4">
-                            FAQ ?
+                        Frequently Asked Questions ?
+                        <p>(FAQ)</p>
                         </h1>
                         {faqs.map((faq, index) => (
                             <div key={index} className={`border rounded-lg shadow-lg w-full md:w-[28rem] ${index === faqs.length - 1 ? 'mb-0' : 'mb-5'}`}>
