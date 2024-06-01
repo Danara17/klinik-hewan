@@ -20,12 +20,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
-// Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
-
 Route::get('/', function () {
     return Inertia::render('Home');
 });
@@ -34,14 +28,12 @@ Route::get('/faq', function () {
     return Inertia::render('Faq');
 });
 
-Route::get('/article', function () {
-    return Inertia::render('Article');
-});
+Route::get('/article', [PostController::class, 'publicArticles']);
+Route::get('/article/{id}/{title}', [PostController::class, 'show']);
 
 Route::get('/about', function () {
     return Inertia::render('AboutUs');
 });
-
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');
 Route::get('/logout', [AuthController::class, 'logout']);
@@ -49,6 +41,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.show.register');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+// Route::get('/article', [PostController::class, 'show']);
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
 

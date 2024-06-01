@@ -72,6 +72,11 @@ class CategoriesController extends Controller
         ]);
     }
 
+    public function publicCategories()
+    {
+        // $allCategories = Categories::all();
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

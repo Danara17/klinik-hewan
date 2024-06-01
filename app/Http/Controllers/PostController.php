@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use App\Models\Post;
+use App\Models\User;
 use Carbon\Carbon;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use PharIo\Manifest\Author;
 
 class PostController extends Controller
 {
@@ -70,19 +73,22 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display article data  for guest mode
      */
-    public function show(string $id)
+    public function publicArticles()
     {
-        //
+        $posts = Post::with('author')->get();
+        return Inertia::render('PublicArticles', [
+            'posts' => $posts,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function show($id)
     {
-        //
+        $detailArticle = Post::with('author')->findOrFail($id);
+        return Inertia::render('ArticleDetail', [
+            'detailArticle' => $detailArticle
+        ]);
     }
 
     /**
@@ -98,6 +104,13 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Post::find($id);
+
+        if ($data) {
+            $data->delete();
+            return redirect()->route('post.index');
+        } else {
+            return redirect()->route('post.index');
+        }
     }
 }
