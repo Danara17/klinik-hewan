@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('static/logo.png') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
     <title>Sign In - Pawspital </title>
 </head>
 
@@ -84,9 +84,19 @@
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-200 ease-in-out">Sign
                             In</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                            Don’t have an account yet? <a href="{{ route('auth.show.register') }}"
-                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
-                        </p>
+    Belum punya akun? <a href="{{ route('auth.show.register') }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Daftar</a>.
+</p>
+<div class="flex items-center justify-center text-center">
+    <hr class="border-gray-300 w-full">
+    <p class="text-sm font-light text-gray-500 dark:text-gray-400 mx-2">
+        Atau
+    </p>
+    <hr class="border-gray-300 w-full">
+</div>
+<a href="{{ route('auth.google') }}" class="w-full flex justify-center items-center text-black hover:bg-gray-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-500 dark:hover: dark:focus:ring-red-800 transition duration-200 ease-in-out shadow-lg rounded-2xl border border-gray-300">
+    <img src="{{ asset('static/icon-google.png') }}" alt="Google icon" class="w-6 h-6 mr-2"> Masuk dengan Google
+</a>
+
                     </form>
                 </div>
             </div>
