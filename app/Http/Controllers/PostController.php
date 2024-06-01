@@ -91,26 +91,67 @@ class PostController extends Controller
         ]);
     }
 
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        $categories = Categories::all();
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Edit Post';
+
+        return view('dashboard.author.post.edit', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'post' => $post,
+            'categories' => $categories
+
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the request...
+
+        // Update post data
+        $post = Post::find($id);
+        $post->update([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'body' => $request->body,
+            'author_id' => auth()->user()->id,
+            'published_at' => Carbon::now(),
+        ]);
+
+        // Detach existing categories and attach new ones
+        $category_ids = $request->id_category ? explode(',', $request->id_category) : [];
+        if (!empty($category_ids)) {
+            $valid_category_ids = Categories::whereIn('id', $category_ids)->pluck('id')->toArray();
+            $post->categories()->sync($valid_category_ids);
+
+            // Update the timestamps in the pivot table
+            foreach ($valid_category_ids as $category_id) {
+                $post->categories()->updateExistingPivot($category_id, ['created_at' => now(), 'updated_at' => now()]);
+            }
+        } else {
+            $post->categories()->detach();
+        }
+
+        return redirect()->route('post.index')->with('success', 'Post updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $data = Post::find($id);
+        $post = Post::findOrFail($id);
+        $post->categories()->detach();
+        $post->delete();
 
-        if ($data) {
-            $data->delete();
-            return redirect()->route('post.index');
-        } else {
-            return redirect()->route('post.index');
-        }
+        return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
     }
 }

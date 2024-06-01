@@ -50,7 +50,7 @@ export default function ArticleDetail({ detailArticle }) {
                             </div>
                         </div>
                         <hr />
-                        <div className="text-xl text-justify">
+                        <div className="text-xl text-justify whitespace-pre-wrap">
                             <p>{detailArticle.body}</p>
                         </div>
                     </div>

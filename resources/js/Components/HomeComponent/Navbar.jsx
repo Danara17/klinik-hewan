@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "/public/static/logo.png";
 
 export default function Navbar() {
+    const [isOpen, setIsOpen] = useState(false);
     const loginRoute = () => {
         window.location.href = "/login";
     };
@@ -28,7 +29,7 @@ export default function Navbar() {
                             Get started
                         </button>
                         <button
-                            data-collapse-toggle="navbar-sticky"
+                            onClick={() => setIsOpen(!isOpen)}
                             type="button"
                             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-10
                              focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -54,7 +55,7 @@ export default function Navbar() {
                         </button>
                     </div>
                     <div
-                        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+                        class={`items-center justify-between ${isOpen ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-1`}
                         id="navbar-sticky"
                     >
                         <ul
@@ -89,7 +90,7 @@ export default function Navbar() {
                                      md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700
                                       dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                                 >
-                                    Contact
+                                    Faq
                                 </a>
                             </li>
                         </ul>

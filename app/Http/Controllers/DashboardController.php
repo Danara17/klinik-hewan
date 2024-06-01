@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\MedicalRecord;
 use App\Models\Pet;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Creativeorange\Gravatar\Facades\Gravatar;
@@ -13,6 +14,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Mengambil semua data post dengan relasi author dan categories
+        $posts = Post::with('author', 'categories')->get();
+
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Dashboard';
 
@@ -21,7 +25,7 @@ class DashboardController extends Controller
                 'avatar' => $avatar,
                 'page_title' => $title
             ]);
-        } else if (auth()->user()->role == 'doctor') {
+        } elseif (auth()->user()->role == 'doctor') {
             $info_doctor = Doctor::where('user_id', auth()->user()->id)->first();
             $job = MedicalRecord::where('status', 'diperiksa')->where('doctor_id', $info_doctor->id)->get();
             return view('dashboard.doctor.index', [
@@ -29,13 +33,13 @@ class DashboardController extends Controller
                 'page_title' => $title,
                 'job' => $job
             ]);
-        } else if (auth()->user()->role == 'author') {
-
-            return view('dashboard.author.index', [
+        } elseif (auth()->user()->role == 'author') {
+            return view('dashboard.author.dashboard', [
                 'avatar' => $avatar,
-                'page_title' => $title
+                'page_title' => $title,
+                'posts' => $posts
             ]);
-        } else if (auth()->user()->role == 'user') {
+        } elseif (auth()->user()->role == 'user') {
             return view('dashboard.guest.index', [
                 'avatar' => $avatar,
                 'page_title' => $title
@@ -45,13 +49,11 @@ class DashboardController extends Controller
 
     public function quick_start(Request $request)
     {
-
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Quick Start';
 
         $owner = User::where('role', 'user')->get();
         $pet = Pet::all();
-
 
         return view('dashboard.quick_start', [
             'avatar' => $avatar,
@@ -59,10 +61,7 @@ class DashboardController extends Controller
             'owner' => $owner,
             'pet' => $pet,
         ]);
-
-
     }
-
 
     public function quick_start_handle(Request $request)
     {
@@ -72,5 +71,4 @@ class DashboardController extends Controller
             echo 'here bro';
         }
     }
-
 }

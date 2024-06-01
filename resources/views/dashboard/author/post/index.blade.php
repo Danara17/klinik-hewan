@@ -69,8 +69,7 @@
 </div>
 @endif
 
-<div class="overflow-x-auto
-                        dark:text-white">
+<div class="overflow-x-auto dark:text-white">
     <table id="myTable" class="table-auto min-w-full dark:bg-gray-800">
         <thead>
             <tr>
@@ -78,7 +77,7 @@
                 <th class="px-4 py-2">Author</th>
                 <th class="px-4 py-2">Category</th>
                 <th class="px-4 py-2">Published At</th>
-                <th class="px-4 py-2">Ops</th>
+                <th class="px-1 py-2">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -94,22 +93,26 @@
                     @endforeach
                 </td>
                 <td>{{ $item->getFormattedPublishedAtAttribute() }}</td>
-                <td>
-                    <button data-post-id="{{ $item->id }}" type="button">Delete</button>
+                <td class="ml-40">
+                    <a href="{{ route('post.edit', $item->id) }}" class="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white px-5 py-1.5 rounded">Edit</a>
+                    <form action="{{ route('post.destroy', $item->id) }}" method="POST" class="inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger bg-red-500 hover:bg-red-600 text-white px-4 py-1 ml-5 rounded">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-@endsection()
+@endsection
 
 @section('script-js')
 <script src="{{ url('https://cdn.datatables.net/2.0.5/js/dataTables.js') }}"></script>
 <script>
     let prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     let html = document.querySelector('html');
-
     html.classList.add(prefers);
     html.setAttribute('data-bs-theme', prefers);
     $(document).ready(function() {
