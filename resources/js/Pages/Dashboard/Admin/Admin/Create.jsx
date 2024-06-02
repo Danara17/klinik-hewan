@@ -1,8 +1,9 @@
 import React from "react";
-import { useForm, router} from "@inertiajs/react";
+import { useForm, router, usePage} from "@inertiajs/react";
 import Dashboard from "../../../Dashboard.jsx";
 
 function Create({ name, email, role, avatar, page_title, dataUser,  }) {
+    const {flash} = usePage().props
     const { data, setData, post, processing, errors } = useForm({
         id_name: '',
     });
@@ -13,13 +14,13 @@ function Create({ name, email, role, avatar, page_title, dataUser,  }) {
     }
 
     return (
-        <Dashboard name={name} email={email} role={doctor} avatar={avatar} page_title={page_title} >
+        <Dashboard name={name} email={email} role={role} avatar={avatar} page_title={page_title} >
             <div className="flex justify-between">
                 <nav className="flex" aria-label="Breadcrumb">
                     <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                         <li className="inline-flex items-center">
                             <a
-                                href=""
+                                href="/dashboard"
                                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
                             >
                                 Dashboard
@@ -43,7 +44,7 @@ function Create({ name, email, role, avatar, page_title, dataUser,  }) {
                                     />
                                 </svg>
                                 <a
-                                    href=""
+                                    href="/dashboard/admin"
                                     className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
                                 >
                                     Admin
@@ -68,7 +69,7 @@ function Create({ name, email, role, avatar, page_title, dataUser,  }) {
                                     />
                                 </svg>
                                 <a
-                                    href=""
+                                    href="/dashboard/admin/create"
                                     className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
                                 >
                                     Create
@@ -97,8 +98,8 @@ function Create({ name, email, role, avatar, page_title, dataUser,  }) {
                             <option key={item.id} value={item.id}>{item.name}</option>
                         ))}
                     </select>
-                    {errors.id_name && (
-                        <p className="text-xs text-red-500">{errors.id_name}</p>
+                    {flash.error && (
+                        <p className="text-xs text-red-500">{flash.error}</p>
                     )}
                 </div>
 
