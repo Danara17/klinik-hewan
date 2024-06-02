@@ -119,9 +119,18 @@ class MedicalRecordController extends Controller
         ]);
     }
 
+    public function status(Request $request, string $id)
+    {
+        return view('dashboard.doctor.medical_record.action', [
+
+        ]);
+    }
+
     public function action(Request $request, string $id)
     {
-        dd($id);
+        return view('dashboard.doctor.medical_record.action', [
+            'id' => $id
+        ]);
     }
 
     public function diagnosis(Request $request)

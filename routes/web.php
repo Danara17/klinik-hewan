@@ -15,6 +15,7 @@ use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\PostCategoriesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PrescriptionItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
@@ -22,37 +23,44 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
+use App\Models\PrescriptionItem;
 
-Route::prefix('/inertia')->group(function () {
-  Route::prefix('/test')->group(function () {
+// Route::prefix('/inertia')->group(function () {
+//     Route::prefix('/test')->group(function () {
 
-      //Specialization
-    Route::get('/admin/specialization/create', function (){
-        return Inertia::render('Dashboard/Admin/Specialization/Create', [
-            'user' => 'rafi'
-        ]);
-    });
+//         //Specialization
+//         Route::get('/admin/specialization/create', function () {
+//             return Inertia::render('Dashboard/Admin/Specialization/Create', [
+//                 'user' => 'rafi'
+//             ]);
+//         });
 
-      //User
-     Route::get('/admin/user/create', function (){
-         $user = Auth::user();
-         return Inertia::render('Dashboard/Admin/User/Create', [
+//         //User
+//         Route::get('/admin/user/create', function () {
+//             $user = Auth::user();
+//             return Inertia::render('Dashboard/Admin/User/Create', [
 
-         ]);
-     });
-  });
-});
-
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
-// Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
+//             ]);
+//         });
+//     });
+// });
 
 Route::get('/', function () {
     return Inertia::render('Home');
 });
 
+// Route::get('/', function () {
+//     // return view('welcome');
+//     return Inertia::render('Home');
+// })->name('home');
+
+// Route::get('/', [\App\Http\Controllers\TestController::class, 'render']);
+
+// Route::get('/', function () {
+//     return Inertia::render('Home');
+// });
+
+// Landing Page
 Route::get('/faq', function () {
     return Inertia::render('Faq');
 });
@@ -75,7 +83,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
 
-    // Profile
+    // Profilet 
     Route::prefix('/profile')->group(function () {
         Route::get('', [ProfileController::class, 'index'])->name('profile.show');
         Route::post('update/information', [ProfileController::class, 'updateProfileInformation'])->name('profile.update.information');
@@ -103,10 +111,10 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     // User Role
     Route::middleware('role:user')->group(function () {
         Route::prefix('/user/preview')->group(function () {
-            // Route::get('', [DashboardController::class, 'index'])->name('dashboard.show.user');
-            Route::get('', function () {
-                return Inertia::render('Admin/Test');
-            })->name('dashboard.show.user');
+            Route::get('', [DashboardController::class, 'index'])->name('dashboard.show.user');
+            // Route::get('', function () {
+            //     return Inertia::render('Admin/Test');
+            // })->name('dashboard.show.user');
         });
     });
 
@@ -120,8 +128,16 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
             Route::prefix('/medical_record')->group(function () {
                 Route::get('/list', [MedicalRecordController::class, 'list'])->name('medical_record.list');
                 Route::post('/diagnosis', [MedicalRecordController::class, 'diagnosis'])->name('medical_record.diagnosis');
-                Route::get('/check/{id}', [MedicalRecordController::class, 'check'])->name('medical_record.check');
+                Route::get('/status/{id}', [MedicalRecordController::class, 'status'])->name('medical_record.check');
                 Route::get('/action/{id}', [MedicalRecordController::class, 'action'])->name('medical_record.action');
+            });
+
+            // Prescription
+            Route::prefix('/prescription')->group(function () {
+                Route::get('', [PrescriptionItemController::class, 'index'])->name('prescription.index');
+                Route::get('/create/{id}', [PrescriptionItemController::class, 'create'])->name('prescription.create');
+                Route::post('/store', [PrescriptionItemController::class, 'store'])->name('prescription.store');
+                Route::get('/destroy/{id}/{med_id}', [PrescriptionItemController::class, 'destroy'])->name('prescription.destroy');
             });
 
             // Pet

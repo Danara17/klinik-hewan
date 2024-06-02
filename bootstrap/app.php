@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => EnsureUserHasRole::class,
         ]);
 
-         $middleware->web(append: [
+        $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
         ]);
     })

@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function showRegister()
     {
-        return Inertia::render('Auth/Register');
+        return view('auth.register');
     }
 
     public function register(Request $request)
@@ -83,7 +83,7 @@ class AuthController extends Controller
             }
         }
 
-        return redirect()->route('auth.show.login')->with('error', 'Email atau Password salah');
+        return redirect()->route('auth.show.login')->with('error', 'Email atau Password salah')->withInput();
     }
 
 
