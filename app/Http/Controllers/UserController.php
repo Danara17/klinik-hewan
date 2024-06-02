@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,6 +63,12 @@ class UserController extends Controller
     public function store_from_quick(Request $request)
     {
         dd($request->all());
+    }
+
+
+    public function getUser(Request $request)
+    {
+        return response()->json(Auth::user());
     }
 
 
