@@ -13,13 +13,13 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $user = User::where('role', 'author')->get();
+        $authors = User::where('role', 'author')->get();
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Author';
         return view('dashboard.admin.author.index', [
             'avatar' => $avatar,
             'page_title' => $title,
-            'dataAuthor' => $user
+            'dataAuthor' => $authors
         ]);
     }
 
@@ -29,6 +29,14 @@ class AuthorController extends Controller
     public function create()
     {
         //
+        $user = User::where('role', 'user')->get();
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Create Author';
+        return view('dashboard.admin.author.create', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'dataUser' => $user
+        ]);
     }
 
     /**
@@ -37,6 +45,11 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         //
+        User::where('id', $request->id_name)->update([
+            'role' => 'author'
+        ]);
+
+        return redirect()->route('author.index')->with('success', 'Author berhasil ditambahkan');
     }
 
     /**
@@ -69,5 +82,7 @@ class AuthorController extends Controller
     public function destroy(string $id)
     {
         //
+        User::destroy($id);
+        return redirect()->route('author.index')->with('success', 'Author berhasil dihapus');
     }
 }
