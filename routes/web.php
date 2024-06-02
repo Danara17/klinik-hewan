@@ -64,6 +64,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login.show');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.show.register');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
 // Authenticated Routes
@@ -110,9 +111,9 @@ Route::middleware(['auth', 'role:author'])->prefix('/dashboard/author/workspace'
 // User Role
 Route::middleware(['auth', 'role:user'])->prefix('/dashboard/user/preview')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('dashboard.show.user');
-            // Route::get('', function () {
-            //     return Inertia::render('Admin/Test');
-            // })->name('dashboard.show.user');
+    // Route::get('', function () {
+    //     return Inertia::render('Admin/Test');
+    // })->name('dashboard.show.user');
 });
 
 // Doctor Role
@@ -135,10 +136,6 @@ Route::middleware(['auth', 'role:doctor'])->prefix('/dashboard/doctor/workspace'
     });
 });
 
-    // Admin Role
-    Route::middleware('role:admin')->group(function () {
-
-        Route::get('', [DashboardController::class, 'index'])->name('dashboard.show');
 // Admin Role
 Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('dashboard.show');
@@ -183,4 +180,3 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
 
 // Get user details
 Route::middleware(['auth'])->get('/user', [UserController::class, 'getUser'])->name('user.get');
-
