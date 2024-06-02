@@ -3,11 +3,11 @@ import Navbar from "../Components/HomeComponent/Navbar";
 import ArticleContent from "../Components/ArticleComponent/ArticleContent";
 import Footer from "../Components/HomeComponent/Footer";
 
-export default function Article() {
+export default function PublicArticles({ posts }) {
     return (
         <>
             <Navbar />
-            <ArticleContent />
+            <ArticleContent posts={posts} />
             <Footer />
         </>
     );

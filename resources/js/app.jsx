@@ -6,6 +6,7 @@ import "flowbite"; // Import Flowbite if needed
 import "./bootstrap"; // Import other necessary setup files
 import "../css/app.css"; // Import your CSS
 
+
 createInertiaApp({
     // Below you can see that we are going to get all React components from resources/js/Pages folder
     resolve: (name) =>

@@ -19,4 +19,9 @@ class Categories extends Model
     {
         return Carbon::parse($this->created_at)->diffForHumans();
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post_categories', 'category_id', 'post_id');
+    }
 }

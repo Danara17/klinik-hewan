@@ -18,10 +18,9 @@ class Post extends Model
         'published_at'
     ];
 
-
     public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function getFormattedPublishedAtAttribute()
@@ -33,5 +32,4 @@ class Post extends Model
     {
         return $this->belongsToMany(Categories::class, 'post_categories', 'post_id', 'category_id');
     }
-
 }

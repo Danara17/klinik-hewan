@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use App\Models\Post;
+use App\Models\User;
 use Carbon\Carbon;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use PharIo\Manifest\Author;
 
 class PostController extends Controller
 {
@@ -70,34 +73,85 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display article data  for guest mode
      */
-    public function show(string $id)
+    public function publicArticles()
     {
-        //
+        $posts = Post::with('author')->get();
+        return Inertia::render('PublicArticles', [
+            'posts' => $posts,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function show($id)
     {
-        //
+        $detailArticle = Post::with('author')->findOrFail($id);
+        return Inertia::render('ArticleDetail', [
+            'detailArticle' => $detailArticle
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        $categories = Categories::all();
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Edit Post';
+
+        return view('dashboard.author.post.edit', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'post' => $post,
+            'categories' => $categories
+
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the request...
+
+        // Update post data
+        $post = Post::find($id);
+        $post->update([
+            'slug' => $request->slug,
+            'title' => $request->title,
+            'body' => $request->body,
+            'author_id' => auth()->user()->id,
+            'published_at' => Carbon::now(),
+        ]);
+
+        // Detach existing categories and attach new ones
+        $category_ids = $request->id_category ? explode(',', $request->id_category) : [];
+        if (!empty($category_ids)) {
+            $valid_category_ids = Categories::whereIn('id', $category_ids)->pluck('id')->toArray();
+            $post->categories()->sync($valid_category_ids);
+
+            // Update the timestamps in the pivot table
+            foreach ($valid_category_ids as $category_id) {
+                $post->categories()->updateExistingPivot($category_id, ['created_at' => now(), 'updated_at' => now()]);
+            }
+        } else {
+            $post->categories()->detach();
+        }
+
+        return redirect()->route('post.index')->with('success', 'Post updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->categories()->detach();
+        $post->delete();
+
+        return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
     }
 }
