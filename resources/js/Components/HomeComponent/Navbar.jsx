@@ -19,6 +19,10 @@ const Navbar = ({ role }) => {
                 return "/dashboard";
             } else if (role === "author") {
                 return "/dashboard/author/workspace";
+            } else if (role === "doctor") {
+                return "/dashboard/doctor/workspace";
+            } else if (role === "user") {
+                return "/dashboard/user/preview";
             }
         }
         return "/login";
