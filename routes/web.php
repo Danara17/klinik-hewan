@@ -46,7 +46,15 @@ use App\Models\PrescriptionItem;
 // });
 
 Route::get('/', function () {
-    return Inertia::render('Home');
+    $role = '';
+    if (Auth::check()) {
+        $role = Auth::user()->role;
+        return Inertia::render('Home', [
+            'role' => $role
+        ]);
+    } else {
+        return Inertia::render('Home');
+    }
 });
 
 Route::get('/faq', function () {

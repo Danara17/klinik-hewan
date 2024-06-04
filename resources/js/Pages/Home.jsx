@@ -3,10 +3,12 @@ import Navbar from "../Components/HomeComponent/Navbar";
 import Footer from "../Components/HomeComponent/Footer";
 import Hero from "../Components/HomeComponent/Hero";
 
-export default function Home() {
+export default function Home(props) {
+    const { role } = props;
+
     return (
         <>
-            <Navbar />
+            <Navbar role={role} />
             <Hero />
             <Footer />
         </>

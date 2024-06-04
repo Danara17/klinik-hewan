@@ -1,14 +1,12 @@
 import React, { useContext, useState } from "react"; // Import useContext from 'react'
 import { Link } from "@inertiajs/inertia-react";
-import { AuthContext } from "../contexts/AuthContext";
 import Logo from "/public/static/logo.png";
 
-const Navbar = () => {
-    const { user } = useContext(AuthContext); // Destructure user from the context
-    const [isOpen, setIsOpen] = useState(false); // State for toggling the mobile menu
+const Navbar = ({ role }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
     const getButtonText = () => {
-        if (user) {
+        if (role) {
             return "Dashboard";
         } else {
             return "Get Started";
@@ -16,10 +14,10 @@ const Navbar = () => {
     };
 
     const getDashboardUrl = () => {
-        if (user) {
-            if (user.role === "admin") {
+        if (role) {
+            if (role === "admin") {
                 return "/dashboard";
-            } else if (user.role === "author") {
+            } else if (role === "author") {
                 return "/dashboard/author/workspace";
             }
         }
