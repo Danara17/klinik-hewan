@@ -66,7 +66,21 @@ class MedicalRecordController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Medical Record';
+        $owner = User::where('role', 'user')->get();
+        $pet = Pet::all();
+        $doctor = Doctor::all();
+        $data = MedicalRecord::findOrFail($id);
+        // dd($data->check_date);
+        return view('dashboard.admin.medical_record.view', [
+            'page_title' => $title,
+            'avatar' => $avatar,
+            'owner' => $owner,
+            'pet' => $pet,
+            'doctor' => $doctor,
+            'data' => $data
+        ]);
     }
 
     /**

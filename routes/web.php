@@ -137,6 +137,14 @@ Route::middleware(['auth', 'role:doctor'])->prefix('/dashboard/doctor/workspace'
         Route::get('/action/{id}', [MedicalRecordController::class, 'action'])->name('medical_record.action');
     });
 
+    // Prescription
+    Route::prefix('/prescription')->group(function () {
+        Route::get('', [PrescriptionItemController::class, 'index'])->name('prescription.index');
+        Route::get('/create/{id}', [PrescriptionItemController::class, 'create'])->name('prescription.create');
+        Route::post('/store', [PrescriptionItemController::class, 'store'])->name('prescription.store');
+        Route::get('/destroy/{id}/{med_id}', [PrescriptionItemController::class, 'destroy'])->name('prescription.destroy');
+    });
+
     // Pet
     Route::prefix('/pet')->group(function () {
         Route::get('/check/{id}', [PetController::class, 'check'])->name('pet.check');
@@ -172,6 +180,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
     // Medical Record
     Route::prefix('/medical_record')->group(function () {
         Route::get('', [MedicalRecordController::class, 'index'])->name('medical_record.index');
+        Route::get('/view/{id}', [MedicalRecordController::class, 'show'])->name('medical_record.show');
         Route::get('/create', [MedicalRecordController::class, 'create'])->name('medical_record.create');
         Route::post('/store', [MedicalRecordController::class, 'store'])->name('medical_record.store');
     });
@@ -183,6 +192,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
         Route::resource('inventory_item', InventoryItemController::class);
         Route::resource('specialization', MasterSpecializationController::class);
     });
+
 });
 
 
