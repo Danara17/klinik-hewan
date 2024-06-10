@@ -33,7 +33,7 @@
 
 <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-500">
 
-<form action="{{ route('post.update', $post->id) }}" method="POST">
+<form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -49,6 +49,12 @@
     </div>
 
     <div class="mb-3">
+        <div class="flex flex-col mb-6">
+            <label for="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Image
+            </label>
+            <input type="file" id="image" name="image" class="bg-gray-100 border-gray-300 rounded-lg">
+        </div>
         <label for="editor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Body
         </label>
