@@ -97,7 +97,7 @@ class GoogleController extends Controller
                     'password' => bcrypt(uniqid()),
                     'role' => 'user',
                     'address' => $address ?? 'Alamat tidak tersedia', // Nilai default untuk alamat
-                    'phone' => $phone ?? null,
+                    'phone' => $phone ?? 'Nomor telepon tidak tersedia', // Nilai default untuk nomor telepon
                 ];
 
                 // Membuat pengguna baru
