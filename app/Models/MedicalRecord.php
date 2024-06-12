@@ -25,4 +25,9 @@ class MedicalRecord extends Model
         return Carbon::parse($this->created_at)->diffForHumans();
     }
 
+    public function prescriptionItems()
+    {
+        return $this->hasMany(PrescriptionItem::class);
+    }
+
 }

@@ -100,7 +100,8 @@
                     <th class="px-4 py-2">Photo</th>
                     <th class="px-4 py-2">Name</th>
                     <th class="px-4 py-2">Doctor</th>
-                    <th class="px-4 py-2">Status</th>
+                    <th class="px-4 py-2">Status Perawatan</th>
+                    <th class="px-4 py-2">Status Pembayaran</th>
                     <th class="px-4 py-2">Ops</th>
                 </tr>
             </thead>
@@ -120,25 +121,58 @@
                             {{ $item->doctor->name }}
                         </td>
                         <td>
-                            @if ($item->status == 'diperiksa')
+                            @if ($item->status_perawatan == 'diperiksa')
                                 <span
                                     class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                                     sedang diperiksa
                                 </span>
-                            @elseif($item->status == 'dirawat')
+                            @elseif ($item->status_perawatan == 'sudah_diperiksa')
+                                <span
+                                    class="bg-green-100 text-green-400-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                    sudah diperiksa
+                                </span>
+                            @elseif($item->status_perawatan == 'dirawat')
                                 <span
                                     class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                                     sedang dirawat
                                 </span>
-                            @elseif($item->status == 'belum bayar')
+                            @elseif($item->status_perawatan == 'belum bayar')
                                 <span
                                     class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
                                     menunggu pembayaran
                                 </span>
-                            @elseif($item->status == 'selesai')
+                            @elseif($item->status_perawatan == 'selesai')
                                 <span
                                     class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
                                     selesai
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($item->status_pembayaran == 'menunggu_pembayaran')
+                                <span
+                                    class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                                    Menunggu Pembayaran
+                                </span>
+                            @elseif($item->status_pembayaran == 'belum_disetel')
+                                <span
+                                    class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                                    Belum disetel
+                                </span>
+                            @elseif($item->status_pembayaran == 'menungggu_konfirmasi')
+                                <span
+                                    class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                                    Menunggu Konfirmasi
+                                </span>
+                            @elseif($item->status_pembayaran == 'cancelled')
+                                <span
+                                    class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
+                                    Cancelled
+                                </span>
+                            @elseif($item->status_perawatan == 'selesai')
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                    Selesai
                                 </span>
                             @endif
                         </td>
@@ -175,6 +209,10 @@
                                         <a href="#"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change
                                             Status</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('invoice.create', $item->id) }}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Invoice</a>
                                     </li>
                                 </ul>
                             </div>

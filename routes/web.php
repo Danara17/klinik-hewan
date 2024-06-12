@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
+use App\Http\Controllers\InvoiceController;
 use App\Models\PrescriptionItem;
 
 // Route::prefix('/inertia')->group(function () {
@@ -68,7 +69,7 @@ Route::get('/about', function () {
     return Inertia::render('AboutUs');
 })->name('about');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login.show');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.show.register');
@@ -191,6 +192,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
         Route::resource('inventory_category', InventoryCategoryController::class);
         Route::resource('inventory_item', InventoryItemController::class);
         Route::resource('specialization', MasterSpecializationController::class);
+    });
+
+    // Invoice 
+    Route::prefix('/invoice')->group(function () {
+        Route::get('', [InvoiceController::class, 'index'])->name('invoice.index');
+        Route::get('/create/{id}', [InvoiceController::class, 'create'])->name('invoice.create');
+        Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
     });
 
 });

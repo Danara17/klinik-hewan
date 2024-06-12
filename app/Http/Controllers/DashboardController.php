@@ -28,7 +28,7 @@ class DashboardController extends Controller
             ]);
         } elseif (auth()->user()->role == 'doctor') {
             $info_doctor = Doctor::where('user_id', auth()->user()->id)->first();
-            $job = MedicalRecord::where('status', 'diperiksa')
+            $job = MedicalRecord::where('status_perawatan', 'diperiksa')->orWhere('status_perawatan', 'sudah_diperiksa')
                 ->where('doctor_id', $info_doctor->id)
                 ->get();
             return view('dashboard.doctor.index', [

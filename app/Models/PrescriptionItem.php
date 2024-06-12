@@ -13,6 +13,15 @@ class PrescriptionItem extends Model
     {
         return $this->belongsTo(InventoryItem::class);
     }
+    public function medicalRecord()
+    {
+        return $this->belongsTo(MedicalRecord::class);
+    }
+
+    public function inventoryItem()
+    {
+        return $this->belongsTo(InventoryItem::class, 'inventory_items_id');
+    }
 
     use HasFactory;
 }

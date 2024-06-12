@@ -17,10 +17,10 @@ return new class extends Migration {
             $table->unsignedInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->date('check_date');
-            $table->enum('status', ['diperiksa', 'dirawat', 'belum bayar', 'selesai'])->default('diperiksa');
+            $table->enum('status_perawatan', ['diperiksa', 'sudah_diperiksa', 'dirawat', 'selesai'])->default('diperiksa');
+            $table->enum('status_pembayaran', ['belum_disetel', 'menunggu_pembayaran', 'menunggu_konfirmasi', 'cancelled', 'selesai'])->default('belum_disetel');
             $table->text('complaint')->nullable();
             $table->text('diagnosis')->nullable();
-            $table->text('prescription')->nullable();
             $table->timestamps();
         });
     }
