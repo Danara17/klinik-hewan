@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\PostCategories;
 use Illuminate\Http\Request;
 
@@ -62,6 +63,18 @@ class PostCategoriesController extends Controller
         //
     }
 
+    // Controller
+    public function showRelatedPosts($category_id)
+    {
+        $category = Categories::findOrFail($category_id);
+        $relatedPosts = $category->posts()->paginate(10);
+        $page_title = "Related Posts for " . $category->name;
+
+        return view('dashboard.author.category.related_posts', compact('category', 'relatedPosts', 'page_title'));
+    }
+
+
+
     public function create_new_post(Request $request, $post_id, $category_id)
     {
         // Mengakses nilai post_id dan category_id
@@ -77,5 +90,4 @@ class PostCategoriesController extends Controller
 
         return redirect()->route('post.index')->with('success', 'Post Berhasil Ditambahkan.');
     }
-
 }
