@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Invoice;
 use App\Models\MedicalRecord;
 use App\Models\Pet;
 use App\Models\Post;
@@ -48,9 +49,11 @@ class DashboardController extends Controller
                 'posts' => $posts
             ]);
         } elseif (auth()->user()->role == 'user') {
+            $data = Invoice::where('user_id', auth()->user()->id)->where('status', 'belum')->get();
             return view('dashboard.guest.index', [
                 'avatar' => $avatar,
-                'page_title' => $title
+                'page_title' => $title,
+                'data' => $data
             ]);
         }
     }

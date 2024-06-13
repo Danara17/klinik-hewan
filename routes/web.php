@@ -123,6 +123,10 @@ Route::middleware(['auth', 'role:user'])->prefix('/dashboard/user/preview')->gro
     // Route::get('', function () {
     //     return Inertia::render('Admin/Test');
     // })->name('dashboard.show.user');
+    Route::prefix('/invoice')->group(function () {
+        Route::get('/{invoiceNumber}', [InvoiceController::class, 'pay'])->name('invoice.pay');
+        Route::post('/payment', [InvoiceController::class, 'payment'])->name('invoice.payment');
+    });
 });
 
 // Doctor Role

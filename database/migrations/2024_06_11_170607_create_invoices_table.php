@@ -16,11 +16,11 @@ return new class extends Migration {
             $table->foreign('medical_record_id')->references('id')->on('medical_records');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->enum('status', ['belum', 'lunas'])->default('belum');
             $table->string('invoice_number')->unique();
             $table->decimal('total_amount', 10, 2);
             $table->date('invoice_date');
             $table->timestamps();
-
             // Foreign key constraints
         });
     }

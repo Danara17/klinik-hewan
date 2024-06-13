@@ -149,6 +149,7 @@
                             @endif
                         </td>
                         <td>
+
                             @if ($item->status_pembayaran == 'menunggu_pembayaran')
                                 <span
                                     class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
@@ -159,7 +160,7 @@
                                     class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">
                                     Belum disetel
                                 </span>
-                            @elseif($item->status_pembayaran == 'menungggu_konfirmasi')
+                            @elseif($item->status_pembayaran == 'menunggu_konfirmasi')
                                 <span
                                     class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                                     Menunggu Konfirmasi
