@@ -63,7 +63,6 @@ class PostCategoriesController extends Controller
         //
     }
 
-    // Controller
     public function showRelatedPosts($category_id)
     {
         $category = Categories::findOrFail($category_id);
