@@ -116,7 +116,11 @@ Route::middleware(['auth', 'role:author'])->prefix('/dashboard/author/workspace'
     Route::prefix('/post_category')->group(function () {
         Route::get('/create_new_post/{post_id}/{category_id}', [PostCategoriesController::class, 'create_new_post'])->name('post.create-new-post');
     });
+
+    // Related View Article Categories
+    Route::get('/category/{category_id}/related-posts', [PostCategoriesController::class, 'showRelatedPosts'])->name('category.related-posts');
 });
+
 
 // User Role
 Route::middleware(['auth', 'role:user'])->prefix('/dashboard/user/preview')->group(function () {

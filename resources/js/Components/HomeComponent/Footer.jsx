@@ -30,7 +30,7 @@ export default function Footer() {
                                             Beranda
                                         </a>
                                     </li>
-                                    <li className="mb-4">
+                                    <li classNameName="mb-4">
                                         <a
                                             href="/about"
                                             className="hover:underline"
@@ -55,7 +55,9 @@ export default function Footer() {
                                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                     <li className="mb-4">
                                         <a
-                                            href="https://github.com/themesberg/flowbite"
+                                            href="https://github.com/themesberg/flowbite/ "
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="hover:underline "
                                         >
                                             Github
@@ -63,7 +65,9 @@ export default function Footer() {
                                     </li>
                                     <li>
                                         <a
-                                            href="https://discord.gg/4eeurUVvTy"
+                                            href="https://discord.gg/4eeurUVvTy/ "
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="hover:underline"
                                         >
                                             Discord
@@ -78,7 +82,9 @@ export default function Footer() {
                                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                     <li className="mb-4">
                                         <a
-                                            href="https://maps.app.goo.gl/nsV348QTbj4vWkef8"
+                                            href="https://maps.app.goo.gl/nsV348QTbj4vWkef8/ "
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="hover:underline"
                                         >
                                             Jalan Pegangsaan Timur No 56
@@ -86,7 +92,9 @@ export default function Footer() {
                                     </li>
                                     <li className="mb-4">
                                         <a
-                                            href="tel:(031) 8286155"
+                                            href="tel:(031) 8286155/ "
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="hover:underline"
                                         >
                                             (031) 8286155
@@ -94,7 +102,9 @@ export default function Footer() {
                                     </li>
                                     <li>
                                         <a
-                                            href="mailto:info@otakkanan.co.id"
+                                            href="mailto:info@otakkanan.co.id/ "
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="hover:underline"
                                         >
                                             info@otakkanan.co.id

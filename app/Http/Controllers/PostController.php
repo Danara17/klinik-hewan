@@ -8,6 +8,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use PharIo\Manifest\Author;
 
@@ -25,6 +27,26 @@ class PostController extends Controller
             'avatar' => $avatar,
             'page_title' => $title,
             'post' => $post
+        ]);
+    }
+
+
+    /**
+     * Display article data  for guest mode
+     */
+    public function publicArticles()
+    {
+        $posts = Post::with('author')->get();
+        return Inertia::render('PublicArticles', [
+            'posts' => $posts,
+        ]);
+    }
+
+    public function show($id)
+    {
+        $detailArticle = Post::with('author')->findOrFail($id);
+        return Inertia::render('ArticleDetail', [
+            'detailArticle' => $detailArticle
         ]);
     }
 
@@ -48,6 +70,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         // TODO : Create Validation
         $category = $request->id_category;
         $id_category_array = array_map('intval', explode(',', $category));
@@ -59,6 +82,13 @@ class PostController extends Controller
             'author_id' => auth()->user()->id,
             'published_at' => Carbon::now(),
         ];
+
+        if ($request->hasFile('image')) {
+            $image = Str::random(40) . '.' . $request->image->extension();
+            $request->image->storeAs('public/images', $image);
+            $data['image'] = $image; // tambahkan path gambar ke array data
+        }
+
 
         Post::create($data);
         $data_id = Post::latest()->first()->id;
@@ -72,24 +102,7 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Display article data  for guest mode
-     */
-    public function publicArticles()
-    {
-        $posts = Post::with('author')->get();
-        return Inertia::render('PublicArticles', [
-            'posts' => $posts,
-        ]);
-    }
 
-    public function show($id)
-    {
-        $detailArticle = Post::with('author')->findOrFail($id);
-        return Inertia::render('ArticleDetail', [
-            'detailArticle' => $detailArticle
-        ]);
-    }
 
     public function edit($id)
     {
@@ -124,6 +137,16 @@ class PostController extends Controller
             'published_at' => Carbon::now(),
         ]);
 
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::delete('public/images/' . $post->image);
+            }
+
+            $image = Str::random(40) . '.' . $request->image->extension();
+            $request->image->storeAs('public/images/', $image);
+            $post->update(['image' => $image]);
+        }
+
         // Detach existing categories and attach new ones
         $category_ids = $request->id_category ? explode(',', $request->id_category) : [];
         if (!empty($category_ids)) {
@@ -149,6 +172,11 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         $post = Post::findOrFail($id);
+
+        if ($post->image) {
+            Storage::delete('public/images/' . $post->image);
+        }
+
         $post->categories()->detach();
         $post->delete();
 

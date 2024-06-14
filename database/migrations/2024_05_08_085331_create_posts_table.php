@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug')->unique()->required();
             $table->text('body')->required();
+            $table->string('image');
             $table->unsignedInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
             $table->timestamp('published_at');
