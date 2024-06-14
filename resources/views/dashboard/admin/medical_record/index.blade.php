@@ -100,7 +100,9 @@
                     <th class="px-4 py-2">Photo</th>
                     <th class="px-4 py-2">Name</th>
                     <th class="px-4 py-2">Doctor</th>
-                    <th class="px-4 py-2">Status</th>
+                    <th class="px-4 py-2">Status Perawatan</th>
+                    <th class="px-4 py-2">Status Pembayaran</th>
+                    <th class="px-4 py-2">Ops</th>
                 </tr>
             </thead>
             <tbody>
@@ -119,27 +121,102 @@
                             {{ $item->doctor->name }}
                         </td>
                         <td>
-                            @if ($item->status == 'diperiksa')
+                            @if ($item->status_perawatan == 'diperiksa')
                                 <span
                                     class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                                     sedang diperiksa
                                 </span>
-                            @elseif($item->status == 'dirawat')
+                            @elseif ($item->status_perawatan == 'sudah_diperiksa')
+                                <span
+                                    class="bg-green-100 text-green-400-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                    sudah diperiksa
+                                </span>
+                            @elseif($item->status_perawatan == 'dirawat')
                                 <span
                                     class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
                                     sedang dirawat
                                 </span>
-                            @elseif($item->status == 'belum bayar')
+                            @elseif($item->status_perawatan == 'belum bayar')
                                 <span
                                     class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
                                     menunggu pembayaran
                                 </span>
-                            @elseif($item->status == 'selesai')
+                            @elseif($item->status_perawatan == 'selesai')
                                 <span
                                     class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
                                     selesai
                                 </span>
                             @endif
+                        </td>
+                        <td>
+
+                            @if ($item->status_pembayaran == 'menunggu_pembayaran')
+                                <span
+                                    class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                                    Menunggu Pembayaran
+                                </span>
+                            @elseif($item->status_pembayaran == 'belum_disetel')
+                                <span
+                                    class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                                    Belum disetel
+                                </span>
+                            @elseif($item->status_pembayaran == 'menunggu_konfirmasi')
+                                <span
+                                    class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                                    Menunggu Konfirmasi
+                                </span>
+                            @elseif($item->status_pembayaran == 'cancelled')
+                                <span
+                                    class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
+                                    Cancelled
+                                </span>
+                            @elseif($item->status_pembayaran == 'selesai')
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                    Transaksi Selesai
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            <button id="dropdownMedicalRecordAction-{{ $item->id }}"
+                                data-dropdown-toggle="dropdownMedRec-{{ $item->id }}"
+                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                type="button">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 4 15">
+                                    <path
+                                        d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="dropdownMedRec-{{ $item->id }}"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownMedicalRecordAction-{{ $item->id }}">
+                                    <li>
+                                        <a href="{{ route('medical_record.show', $item->id) }}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lihat</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change
+                                            Status</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('invoice.create', $item->id) }}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Invoice</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

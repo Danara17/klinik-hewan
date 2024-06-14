@@ -19,7 +19,7 @@ class MedicalRecordController extends Controller
     {
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Medical Record';
-        $items = MedicalRecord::all();
+        $items = MedicalRecord::orderBy('created_at', 'desc')->get();
 
         return view('dashboard.admin.medical_record.index', [
             'items' => $items,
@@ -66,7 +66,21 @@ class MedicalRecordController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Medical Record';
+        $owner = User::where('role', 'user')->get();
+        $pet = Pet::all();
+        $doctor = Doctor::all();
+        $data = MedicalRecord::findOrFail($id);
+        // dd($data->check_date);
+        return view('dashboard.admin.medical_record.view', [
+            'page_title' => $title,
+            'avatar' => $avatar,
+            'owner' => $owner,
+            'pet' => $pet,
+            'doctor' => $doctor,
+            'data' => $data
+        ]);
     }
 
     /**
@@ -96,7 +110,7 @@ class MedicalRecordController extends Controller
     public function list()
     {
         $info_doctor = Doctor::where('user_id', auth()->user()->id)->first();
-        $job = MedicalRecord::where('status', 'diperiksa')->where('doctor_id', $info_doctor->id)->get();
+        $job = MedicalRecord::where('status_perawatan', 'diperiksa')->orWhere('status_perawatan', 'sudah_diperiksa')->where('doctor_id', $info_doctor->id)->orderBy('created_at', 'desc')->get();
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Medical Record List';
         return view('dashboard.doctor.medical_record.list', [
@@ -137,6 +151,7 @@ class MedicalRecordController extends Controller
     {
         MedicalRecord::where('id', $request->id)->update([
             'diagnosis' => $request->diagnosis,
+            'status_perawatan' => 'sudah_diperiksa'
         ]);
         return redirect()->route('medical_record.list')->with('success', 'Berhasil mengupdate diagnosis terbaru.');
     }

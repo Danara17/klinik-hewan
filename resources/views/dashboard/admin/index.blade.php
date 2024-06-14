@@ -82,11 +82,12 @@
                 </div>
                 <div class="mt-4 flex justify-between">
                     <div>
-                        <div class="font-semibold text-xl text-black dark:text-white">Rp. 10.000.000</div>
-                        <div class="text-sm text-gray-400">Pejualan</div>
+                        <div class="font-semibold text-xl text-black dark:text-white">
+                            Rp. {{ number_format($total_pemasukan, 0, '', '.') }}</div>
+                        <div class="text-sm text-gray-400">Pemasukan</div>
                     </div>
                     <div>
-                        <button type="button"
+                        <a href="{{ route('payment.index') }}"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Lihat Detail
                             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
@@ -94,7 +95,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M1 5h12m0 0L9 1m4 4L9 9" />
                             </svg>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -225,10 +226,10 @@
                     <div class="font-semibold text-black dark:text-white mb-3">
                         Grafik Pasien
                     </div>
-{{--                    <a href="{{ route('dashboard.quick_start', 1) }}"--}}
-{{--                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">--}}
-{{--                        Quick Start--}}
-{{--                    </a>--}}
+                    {{--                    <a href="{{ route('dashboard.quick_start', 1) }}" --}}
+                    {{--                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> --}}
+                    {{--                        Quick Start --}}
+                    {{--                    </a> --}}
                 </div>
 
                 <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">

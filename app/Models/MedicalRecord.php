@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class MedicalRecord extends Model
 {
+    protected $fillable = [
+        'status_pembayaran'
+    ];
+
     use HasFactory;
 
     public function pet()
@@ -23,6 +27,11 @@ class MedicalRecord extends Model
     public function getFormattedCreatedAtAttribute()
     {
         return Carbon::parse($this->created_at)->diffForHumans();
+    }
+
+    public function prescriptionItems()
+    {
+        return $this->hasMany(PrescriptionItem::class);
     }
 
 }

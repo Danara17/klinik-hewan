@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Invoice;
 use App\Models\MedicalRecord;
+use App\Models\Payment;
 use App\Models\Pet;
 use App\Models\Post;
 use App\Models\User;
@@ -22,13 +24,19 @@ class DashboardController extends Controller
         $title = 'Dashboard';
 
         if (auth()->user()->role == 'admin') {
+            $pemasukan = Payment::where('status', 'success')->get('total_amount');
+            $total = 0;
+            foreach ($pemasukan as $hitung) {
+                $total += $hitung->total_amount;
+            }
             return view('dashboard.admin.index', [
                 'avatar' => $avatar,
-                'page_title' => $title
+                'page_title' => $title,
+                'total_pemasukan' => $total
             ]);
         } elseif (auth()->user()->role == 'doctor') {
             $info_doctor = Doctor::where('user_id', auth()->user()->id)->first();
-            $job = MedicalRecord::where('status', 'diperiksa')
+            $job = MedicalRecord::where('status_perawatan', 'diperiksa')
                 ->where('doctor_id', $info_doctor->id)
                 ->get();
             return view('dashboard.doctor.index', [
@@ -48,9 +56,11 @@ class DashboardController extends Controller
                 'posts' => $posts
             ]);
         } elseif (auth()->user()->role == 'user') {
+            $data = Invoice::where('user_id', auth()->user()->id)->where('status', 'belum')->get();
             return view('dashboard.guest.index', [
                 'avatar' => $avatar,
-                'page_title' => $title
+                'page_title' => $title,
+                'data' => $data
             ]);
         }
     }

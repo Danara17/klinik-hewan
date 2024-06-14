@@ -83,7 +83,7 @@ class AuthController extends Controller
             }
         }
 
-        return redirect()->route('auth.show.login')->with('error', 'Email atau Password salah')->withInput();
+        return redirect()->route('auth.login')->with('error', 'Email atau Password salah')->withInput();
     }
 
 
@@ -93,6 +93,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('auth.show.login');
+        return redirect()->route('auth.login');
     }
 }
