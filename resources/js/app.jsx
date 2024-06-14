@@ -1,8 +1,8 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client'; // Note the correction from react-dom
+import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { AuthProvider } from './Components/contexts/AuthContext'; // Correct import
+import { AuthProvider } from './Components/contexts/AuthContext';
 
 createInertiaApp({
     resolve: (name) =>

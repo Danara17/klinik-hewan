@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use PharIo\Manifest\Author;
 
@@ -20,11 +21,29 @@ class PostController extends Controller
     {
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Post';
-        $post = Post::all();
+        $posts = Post::with('categories', 'author')->get(); // Load categories and author relationships
         return view('dashboard.author.post.index', [
             'avatar' => $avatar,
             'page_title' => $title,
-            'post' => $post
+            'posts' => $posts
+        ]);
+    }
+    
+    /**
+     * Display posts filtered by category.
+     */
+    public function filterByCategory($category)
+    {
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Post';
+        $posts = Post::whereHas('categories', function ($query) use ($category) {
+            $query->where('name', $category);
+        })->with('categories', 'author')->get();
+
+        return view('dashboard.author.post.index', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'posts' => $posts
         ]);
     }
 

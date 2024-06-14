@@ -1,18 +1,29 @@
-import React, { useContext, useState } from 'react'; // Import useContext from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/inertia-react';
-import { AuthContext } from '../contexts/AuthContext';
 import Logo from "/public/static/logo.png";
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext); // Destructure user from the context
-    const [isOpen, setIsOpen] = useState(false); // State for toggling the mobile menu
+    const [user, setUser] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await fetch('/user');
+                if (response.ok) {
+                    const userData = await response.json();
+                    setUser(userData);
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     const getButtonText = () => {
-        if (user) {
-            return 'Dashboard';
-        } else {
-            return 'Get Started';
-        }
+        return user ? 'Dashboard' : 'Get Started';
     };
 
     const getDashboardUrl = () => {
@@ -21,6 +32,10 @@ const Navbar = () => {
                 return '/dashboard';
             } else if (user.role === 'author') {
                 return '/dashboard/author/workspace';
+            } else if (user.role === 'doctor') {
+                return '/dashboard/doctor/workspace';
+            } else if (user.role === 'user') {
+                return '/dashboard/user/preview';
             }
         }
         return '/login';

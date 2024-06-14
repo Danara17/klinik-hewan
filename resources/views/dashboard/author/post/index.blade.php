@@ -21,14 +21,12 @@
                     <a href="{{ route('post.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Post</a>
                 </div>
             </li>
-
         </ol>
     </nav>
     <a href="{{ route('post.create') }}" class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         <svg class="w-3.5 h-3.5 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 20 20">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
         </svg>
-
         Add New Post
     </a>
 </div>
@@ -81,13 +79,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($post as $item)
+            @foreach ($posts as $item)
             <tr>
                 <td>{{ $item->title }}</td>
                 <td>{{ $item->author->name }}</td>
                 <td>
                     @foreach ($item->categories as $category)
-                    <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">
+                    <a href="{{ route('post.filter', $category->name) }}" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">
                         {{ $category->name }}
                     </a>
                     @endforeach

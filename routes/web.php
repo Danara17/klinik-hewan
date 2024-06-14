@@ -75,6 +75,8 @@ Route::middleware(['auth', 'role:author'])->prefix('/dashboard/author/workspace'
 
     // Post
     Route::resource('post', PostController::class);
+    Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+Route::get('/posts/category/{category}', [PostController::class, 'filterByCategory'])->name('post.filter');
 
     // Post and Categories
     Route::prefix('/post_category')->group(function () {
