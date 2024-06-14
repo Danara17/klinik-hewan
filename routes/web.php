@@ -19,6 +19,7 @@ use App\Http\Controllers\PrescriptionItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -70,12 +71,24 @@ Route::get('/about', function () {
     return Inertia::render('AboutUs');
 })->name('about');
 
+// Authentication Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.show.login');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.show.register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+// Route Login With Google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/guest/dashboard', function () {
+        return view('guest.index');
+    })->name('guest.dashboard');
+});
 
 // Authenticated Routes
 Route::middleware(['auth'])->group(function () {
