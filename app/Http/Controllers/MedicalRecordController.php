@@ -19,7 +19,7 @@ class MedicalRecordController extends Controller
     {
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Medical Record';
-        $items = MedicalRecord::all();
+        $items = MedicalRecord::orderBy('created_at', 'desc')->get();
 
         return view('dashboard.admin.medical_record.index', [
             'items' => $items,
@@ -110,7 +110,7 @@ class MedicalRecordController extends Controller
     public function list()
     {
         $info_doctor = Doctor::where('user_id', auth()->user()->id)->first();
-        $job = MedicalRecord::where('status_perawatan', 'diperiksa')->orWhere('status_perawatan', 'sudah_diperiksa')->where('doctor_id', $info_doctor->id)->get();
+        $job = MedicalRecord::where('status_perawatan', 'diperiksa')->orWhere('status_perawatan', 'sudah_diperiksa')->where('doctor_id', $info_doctor->id)->orderBy('created_at', 'desc')->get();
         $avatar = Gravatar::get(auth()->user()->email);
         $title = 'Medical Record List';
         return view('dashboard.doctor.medical_record.list', [

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentController;
 use App\Models\PrescriptionItem;
 
 // Route::prefix('/inertia')->group(function () {
@@ -127,6 +128,7 @@ Route::middleware(['auth', 'role:user'])->prefix('/dashboard/user/preview')->gro
         Route::get('/{invoiceNumber}', [InvoiceController::class, 'pay'])->name('invoice.pay');
         Route::post('/payment', [InvoiceController::class, 'payment'])->name('invoice.payment');
     });
+
 });
 
 // Doctor Role
@@ -168,6 +170,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
         Route::get('', [UserController::class, 'index'])->name('user.index');
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/store', [UserController::class, 'store'])->name('user.store');
+    });
+
+    // Transaction
+
+    Route::prefix('/transaction')->group(function () {
+        Route::get('', [PaymentController::class, 'index'])->name('payment.index');
+        Route::get('/create', [PaymentController::class, 'create'])->name('payment.create');
+        Route::post('/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
     });
 
     // Admin

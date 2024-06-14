@@ -170,10 +170,10 @@
                                     class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
                                     Cancelled
                                 </span>
-                            @elseif($item->status_perawatan == 'selesai')
+                            @elseif($item->status_pembayaran == 'selesai')
                                 <span
                                     class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                    Selesai
+                                    Transaksi Selesai
                                 </span>
                             @endif
                         </td>

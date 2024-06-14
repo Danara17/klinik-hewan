@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class MedicalRecord extends Model
 {
+    protected $fillable = [
+        'status_pembayaran'
+    ];
+
     use HasFactory;
 
     public function pet()
