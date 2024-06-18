@@ -36,7 +36,8 @@ class PostController extends Controller
      */
     public function publicArticles()
     {
-        $posts = Post::with('author')->get();
+        $posts = Post::with(['author', 'categories'])->get();
+
         return Inertia::render('PublicArticles', [
             'posts' => $posts,
         ]);
