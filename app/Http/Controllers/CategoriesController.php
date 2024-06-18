@@ -26,6 +26,33 @@ class CategoriesController extends Controller
         ]);
     }
 
+
+    /**
+     * Get category data for the chart.
+     */
+    public function getCategoryData()
+    {
+        $categoriesCount = Post::with('categories')
+            ->get()
+            ->flatMap->categories
+            ->groupBy('name')
+            ->map->count();
+
+        return response()->json($categoriesCount);
+    }
+
+    public function dashboard()
+    {
+        $totalCategories = Categories::count();
+        $totalAuthors = User::distinct('name')->count();
+        $mostCategory = Categories::withCount('posts')->orderBy('posts_count', 'desc')->first()->name ?? 'No Category';
+        $posts = Post::with('author', 'categories')->get();
+
+        dd(compact('posts', 'totalCategories', 'totalAuthors', 'mostCategory'));
+    
+        return view('dashboard', compact('posts', 'totalCategories', 'totalAuthors', 'mostCategory'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

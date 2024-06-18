@@ -119,6 +119,10 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'role:author'])->prefix('/dashboard/author/workspace')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('dashboard.show.author');
 
+    // Dashboard
+    Route::get('/categories/data', [CategoriesController::class, 'getCategoryData'])->name('categories.data');
+    Route::get('/dashboard', [CategoriesController::class, 'dashboard'])->name('dashboard');
+
     // Category
     Route::resource('category', CategoriesController::class);
 
