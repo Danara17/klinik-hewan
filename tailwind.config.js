@@ -18,6 +18,11 @@ export default {
         }),
         "./node_modules/flowbite/**/*.jsx",
     ],
+    theme: {
+        colors: {
+            main: "#083AA9",
+        },
+    },
 };
 
 // const flowbite = require("flowbite/plugin");
