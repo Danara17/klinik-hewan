@@ -86,7 +86,7 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $image = Str::random(40) . '.' . $request->image->extension();
-            $request->image->storeAs('public/images', $image);
+            $request->image->storeAs('public/image', $image);
             $data['image'] = $image; // tambahkan path gambar ke array data
         }
 
