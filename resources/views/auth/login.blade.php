@@ -7,6 +7,26 @@
     <link rel="icon" href="{{ asset('static/logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     <title>Sign In - Pawspital </title>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        const eyeSlash = document.getElementById('eyeSlash');
+        const eye = document.getElementById('eye');
+
+        togglePassword.addEventListener('click', () => {
+            if (password.type === 'password') {
+                password.type = 'text';
+                eyeSlash.classList.add('hidden');
+                eye.classList.remove('hidden');
+            } else {
+                password.type = 'password';
+                eyeSlash.classList.remove('hidden');
+                eye.classList.add('hidden');
+            }
+        });
+    });
+</script>
 </head>
 
 <body>
@@ -59,13 +79,29 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="" required="">
                         </div>
-                        <div>
-                            <label for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" value="{{ old('password') }}" name="password" id="password"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div>
+                        div>
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+    <div class="relative">
+        <input type="password" value="{{ old('password') }}" name="password" id="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required="">
+        <span id="togglePassword"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer">
+            <svg id="eyeSlash" class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2"
+                    d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                <path stroke="currentColor" stroke-width="2"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+            <svg id="eye" class="w-6 h-6 text-gray-800 dark:text-white hidden" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+        </span>
+    </div>
+</div>
                         <div class="flex items-center justify-between">
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
@@ -76,9 +112,8 @@
                                     <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                                 </div>
                             </div>
-                            <a href="#"
-                                class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
-                                password?</a>
+                            <a href="{{ route('password.request') }}" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-200 ease-in-out">Sign
