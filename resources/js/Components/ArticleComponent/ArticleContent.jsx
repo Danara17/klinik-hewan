@@ -3,15 +3,36 @@ import {
     Ellipsis,
     Heart,
     MessageCircle,
+    Search,
     Share,
 } from "lucide-react";
+import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 
-export default function ArticleContent({ posts }) {
+export default function ArticleContent({ posts, searchQuery }) {
+    const [query, setQuery] = useState(searchQuery || "");
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        Inertia.get("/search", { query });
+    };
     return (
         <>
             <div className="py-20">
                 <div className="mx-auto w-full max-w-screen-xl p-5 py-4">
-                    {/* Mobile Viewport */}
+                    <form onSubmit={handleSearch} className="mb-6 relative">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <Search className="text-gray-500" />
+                        </span>
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Search articles..."
+                            className="w-full md:w-64 p-2 pl-10 border rounded-full"
+                        />
+                    </form>
+
                     <div className="grid grid-cols-1 gap-3">
                         {posts.map((post) => (
                             <>
@@ -55,7 +76,7 @@ export default function ArticleContent({ posts }) {
                                                             <img
                                                                 src={`http://localhost:8000/storage/images/${post.image}`}
                                                                 alt=""
-                                                                className="hidden md:inline lg:w-32 lg:h-20 object-cover"
+                                                                className="hidden lg:inline lg:w-32 lg:h-20 object-cover"
                                                             />
                                                         </div>
                                                     </div>
@@ -98,7 +119,6 @@ export default function ArticleContent({ posts }) {
                             </>
                         ))}
                     </div>
-                    {/* Mobile Viewport */}
                 </div>
             </div>
         </>

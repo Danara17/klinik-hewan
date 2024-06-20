@@ -183,4 +183,23 @@ class PostController extends Controller
 
         return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
     }
+
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        if ($searchQuery) {
+            $posts = Post::with(['author', 'categories'])
+                ->where('title', 'like', "%{$searchQuery}%")
+                ->orWhere('body', 'like', "%{$searchQuery}%")
+                ->get();
+        } else {
+            $posts = Post::with(['author', 'categories'])->get();
+        }
+
+        return Inertia::render('PublicArticles', [
+            'posts' => $posts,
+            'searchQuery' => $searchQuery
+        ]);
+    }
 }
