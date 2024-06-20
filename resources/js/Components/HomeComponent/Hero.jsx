@@ -81,7 +81,7 @@ export default function Hero() {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 1440 320"
-                    className="absolute top-0 h-[22%] sm:hidden"
+                    className="absolute top-0 h-[18%] sm:hidden"
                 >
                     <path
                         fill="#083AA9"
