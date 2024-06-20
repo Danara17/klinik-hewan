@@ -101,6 +101,18 @@
                     <p class="text-sm font-light text-center">
                         Belum punya akun? <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</a>
                     </p>
+
+                    <div class="flex items-center justify-center text-center">
+                        <hr class="border-gray-300 w-full">
+                        <p class="text-sm font-light mx-2">
+                            Atau
+                        </p>
+                        <hr class="border-gray-300 w-full">
+                    </div>
+                    <a href="{{ route('auth.google') }}" class="w-full flex bg-white justify-center items-center text-black hover:bg-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center transition duration-200 ease-in-out shadow-lg border border-gray-300">
+                        <img src="{{ asset('static/icon-google.png') }}" alt="Google icon" class="w-6 h-6 mr-2">
+                        Masuk dengan Google
+                    </a>
                 </div>
             </form>
         </div>
