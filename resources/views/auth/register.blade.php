@@ -9,7 +9,7 @@
     <title>Register - Pawspital</title>
 </head>
 
-<body class="bg-gradient-to-r from-indigo-400 to-orange-800 min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-r from-white to-main min-h-screen flex items-center justify-center">
     <div class="bg-white shadow-2xl rounded-xl overflow-hidden flex w-full max-w-4xl">
         <div class="hidden lg:block w-1/2 bg-cover bg-center" style="background-image: url('/static/image-register.jpg');">
         </div>
@@ -63,6 +63,16 @@
                             <input type="password" name="password_confirmation" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg 
                             focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                             dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" required="">
+                        </div>
+                        <div>
+                            <span class="font-medium">
+                                sudah punya akun?
+                            </span>
+                            <span class="font-semibold">
+                                <a href="/login" class="hover:underline">
+                                    Login
+                                </a>
+                            </span>
                         </div>
                     </div>
                     <div class="flex flex-col gap-3 mt-6">

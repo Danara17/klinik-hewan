@@ -29,7 +29,7 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-r from-gray-500 to-yellow-700 min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-r from-main to-white min-h-screen flex items-center justify-center">
     <div class="bg-white shadow-2xl rounded-xl overflow-hidden flex w-full max-w-4xl">
         <div class="hidden lg:block w-1/2 bg-cover bg-center" style="background-image: url('/static/image-login.jpg');"></div>
         <div class="w-full lg:w-1/2 p-8">
