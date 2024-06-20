@@ -66,8 +66,11 @@ Route::get('/faq', function () {
     return Inertia::render('Faq');
 })->name('faq');
 
+// Article Routes
 Route::get('/article', [PostController::class, 'publicArticles'])->name('article');
 Route::get('/article/{id}/{title}', [PostController::class, 'show'])->name('article.show');
+Route::get('/search', [PostController::class, 'search'])->name('search');
+
 
 Route::get('/about', function () {
     return Inertia::render('AboutUs');
@@ -160,7 +163,6 @@ Route::middleware(['auth', 'role:user'])->prefix('/dashboard/user/preview')->gro
         Route::get('/{invoiceNumber}', [InvoiceController::class, 'pay'])->name('invoice.pay');
         Route::post('/payment', [InvoiceController::class, 'payment'])->name('invoice.payment');
     });
-
 });
 
 // Doctor Role
@@ -246,7 +248,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
         Route::get('/create/{id}', [InvoiceController::class, 'create'])->name('invoice.create');
         Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
     });
-
 });
 
 

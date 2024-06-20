@@ -36,7 +36,8 @@ class PostController extends Controller
      */
     public function publicArticles()
     {
-        $posts = Post::with('author')->get();
+        $posts = Post::with(['author', 'categories'])->get();
+
         return Inertia::render('PublicArticles', [
             'posts' => $posts,
         ]);
@@ -85,7 +86,7 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $image = Str::random(40) . '.' . $request->image->extension();
-            $request->image->storeAs('public/images', $image);
+            $request->image->storeAs('public/image', $image);
             $data['image'] = $image; // tambahkan path gambar ke array data
         }
 
@@ -181,5 +182,24 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('post.index')->with('success', 'Post deleted successfully.');
+    }
+
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        if ($searchQuery) {
+            $posts = Post::with(['author', 'categories'])
+                ->where('title', 'like', "%{$searchQuery}%")
+                ->orWhere('body', 'like', "%{$searchQuery}%")
+                ->get();
+        } else {
+            $posts = Post::with(['author', 'categories'])->get();
+        }
+
+        return Inertia::render('PublicArticles', [
+            'posts' => $posts,
+            'searchQuery' => $searchQuery
+        ]);
     }
 }
