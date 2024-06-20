@@ -12,76 +12,93 @@
 </head>
 
 <body>
-    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <div class="px-3 py-3 lg:px-5 lg:pl-3">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center justify-start rtl:justify-end">
-                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
-                        aria-controls="logo-sidebar" type="button"
-                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                        <span class="sr-only">Open sidebar</span>
-                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-                            </path>
-                        </svg>
-                    </button>
-                    <a href="" class="flex ms-2 md:me-24">
-                        <img src="{{ asset('static/logo.png') }}" class="h-8 me-3" alt="FlowBite Logo" />
-                        <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Pawspital</span>
-                    </a>
-                </div>
-                <div class="flex items-center">
-                    <div class="flex items-center ms-3">
-                        <div>
-                            <button type="button"
-                                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                                <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->avatar }}" alt="user photo">
-                            </button>
+<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                    aria-controls="logo-sidebar" type="button"
+                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="" class="flex ms-2 md:me-24">
+                    <img src="{{ asset('static/logo.png') }}" class="h-8 me-3" alt="FlowBite Logo" />
+                    <span
+                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Pawspital</span>
+                </a>
+            </div>
+            <div class="flex items-center">
+                <div class="flex items-center ms-3">
+                    <div>
+                        <button type="button"
+                            class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->avatar }}" alt="user photo">
+                        </button>
+                    </div>
+                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                        id="dropdown-user">
+                        <div class="px-4 py-3" role="none">
+                            <p class="text-sm text-gray-900 dark:text-white" role="none">
+                                {{ auth()->user()->name }}
+                            </p>
+                            <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                {{ auth()->user()->email }}
+                            </p>
                         </div>
-                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                            id="dropdown-user">
-                            <div class="px-4 py-3" role="none">
-                                <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    {{ auth()->user()->name }}
-                                </p>
-                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                    {{ auth()->user()->email }}
-                                </p>
-                            </div>
-                            <ul class="py-1" role="none">
-                                <li>
-                                    <a href="{{ route('profile.show') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Profile</a>
-                                </li>
-                                <li>
-                                    <button type="button" id="darkModeToggle"
-                                        class="w-full text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Dark Mode - Off</button>
-                                </li>
-                                <li>
-                                    <a href="{{ route('auth.logout') }}"
-                                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Sign out</a>
-                                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                        <ul class="py-1" role="none">
+                            <li>
+                                <a href="{{ route('profile.show') }}"
+                                    class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    role="menuitem">
+                                    <svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+</svg>
+
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                            <button type="button" id="darkModeToggle" class="flex items-center w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" onclick="toggleDarkMode()">
+    <span id="darkModeIcon">
+        <svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path id="moonIcon" class="hidden dark:inline-block" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            <path id="sunIcon" class="inline-block dark:hidden" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+    </span>
+    <span id="darkModeText">Dark Mode - Off</span>
+</button>
+                            </li>
+                            <li>
+                                <a href="{{ route('auth.logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();"
+                                    class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    role="menuitem">
+                                    <svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                                    </svg>
+                                    Sign out
+                                </a>
+                                <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <aside id="logo-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
@@ -344,36 +361,36 @@
     <script src="{{ url('https://code.jquery.com/jquery-3.7.1.js') }}"></script>
 
     <script>
-        // Fungsi untuk mengaktifkan atau menonaktifkan mode gelap
-        function toggleDarkMode() {
-            const body = document.body;
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                darkModeToggle.textContent = 'Dark Mode - Off';
-                localStorage.setItem('darkMode', 'false');
-            } else {
-                body.classList.add('dark');
-                darkModeToggle.textContent = 'Dark Mode - On';
-                localStorage.setItem('darkMode', 'true');
-            }
-        }
+    function setDarkMode(isDark) {
+    const html = document.documentElement;
+    const darkModeText = document.getElementById('darkModeText');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
+    if (isDark) {
+        html.classList.add('dark');
+        darkModeText.textContent = 'Dark Mode - On';
+        moonIcon.classList.remove('hidden');
+        sunIcon.classList.add('hidden');
+    } else {
+        html.classList.remove('dark');
+        darkModeText.textContent = 'Dark Mode - Off';
+        moonIcon.classList.add('hidden');
+        sunIcon.classList.remove('hidden');
+    }
+}
 
-            // Memanggil fungsi saat tombol dark mode diklik
-            darkModeToggle.addEventListener('click', function() {
-                toggleDarkMode();
-                // Di sini Anda juga dapat menyimpan preferensi pengguna, misalnya di cookie atau di database
-            });
+function toggleDarkMode() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    setDarkMode(isDark);
+    localStorage.setItem('darkMode', isDark);
+}
 
-            // Jika pengguna sebelumnya memilih mode gelap, aktifkan mode gelap saat halaman dimuat
-            if (localStorage.getItem('darkMode') === 'true') {
-                toggleDarkMode();
-            }
-        });
-    </script>
+document.addEventListener('DOMContentLoaded', function () {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(isDark);
+});
+</script>
 
     @yield('script-js')
 

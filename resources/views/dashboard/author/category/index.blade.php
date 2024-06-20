@@ -123,11 +123,6 @@
 @section('script-js')
     <script src="{{ url('https://cdn.datatables.net/2.0.5/js/dataTables.js') }}"></script>
     <script>
-        let prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        let html = document.querySelector('html');
-
-        html.classList.add(prefers);
-        html.setAttribute('data-bs-theme', prefers);
         $(document).ready(function() {
             $('#myTable').DataTable({
                 lengthChange: false,

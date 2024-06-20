@@ -15,7 +15,9 @@
         </div>
         <div class="w-full lg:w-1/2 p-8">
             <div class="flex flex-col gap-2 justify-center items-center mb-8">
-                <img class="w-12 h-12 mr-2 bg-white rounded-full" src="{{ asset('static/logo.png') }}" alt="logo">
+                <a href="/">
+                    <img class="w-12 h-12 mr-2 bg-white rounded-full" src="{{ asset('static/logo.png') }}" alt="logo">
+                </a>
                 <span class="text-xl font-semibold mt-2">Welcome Back, Pawspital!</span>
                 <span class="text-2xl mt-1 font-bold">Login</span>
             </div>
@@ -40,11 +42,15 @@
                 <div class="flex flex-col gap-3">
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium">Your email</label>
-                        <input type="email" value="{{ old('email') }}" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="you@example.com" required>
+                        <input type="email" value="{{ old('email') }}" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 
+                        sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                         dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="you@example.com" required>
                     </div>
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium">Password</label>
-                        <input type="password" value="{{ old('password') }}" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <input type="password" value="{{ old('password') }}" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900
+                         sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                          dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" required>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-start">
