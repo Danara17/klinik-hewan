@@ -41,17 +41,32 @@ class CategoriesController extends Controller
         return response()->json($categoriesCount);
     }
 
-    public function dashboard()
-    {
-        $totalCategories = Categories::count();
-        $totalAuthors = User::distinct('name')->count();
-        $mostCategory = Categories::withCount('posts')->orderBy('posts_count', 'desc')->first()->name ?? 'No Category';
-        $posts = Post::with('author', 'categories')->get();
+    // public function dashboard()
+    // {
+    //     // Get unique categories with post count
+    //     $categories = Categories::withCount('posts')->get();
+    //     $totalCategories = Post::with('categories')->count();
 
-        dd(compact('posts', 'totalCategories', 'totalAuthors', 'mostCategory'));
-    
-        return view('dashboard', compact('posts', 'totalCategories', 'totalAuthors', 'mostCategory'));
-    }
+    //     // Get unique authors
+    //     $uniqueAuthors = Post::with('author')
+    //         ->get()
+    //         ->pluck('author')
+    //         ->unique('id');
+    //     $totalAuthors = $uniqueAuthors->count();
+
+    //     // Get category with most posts
+    //     $mostCategory = $categories->sortByDesc('posts_count')->first()->name ?? 'No Category';
+        
+    //     // dd($totalCategories);
+
+    //     return view('dashboard.author.dashboard', [
+    //         'totalCategories' => $totalCategories,
+    //         'totalAuthors' => $totalAuthors,
+    //         'mostCategory' => $mostCategory,
+    //         'categories' => $categories
+    //         ]);
+    // }
+
 
     /**
      * Show the form for creating a new resource.

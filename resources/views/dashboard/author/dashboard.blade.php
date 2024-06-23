@@ -89,7 +89,7 @@
 
             </div>
             <div class="ml-4">
-               <div class="text-xl font-bold text-gray-900 dark:text-white">
+               <div class="text-xl font-bold text-gray-900 dark:text-white">{{$totalCategories ?? '5'}}
                </div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Category Amount</div>
             </div>
@@ -105,7 +105,7 @@
                 
             </div>
             <div class="ml-4">
-                <div class="text-xl font-bold text-gray-900 dark:text-white"></div>
+                <div class="text-xl font-bold text-gray-900 dark:text-white">{{$totalAuthors ?? '2'}}</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Author Amount</div>
             </div>
         </div>
@@ -119,7 +119,7 @@
 
             </div>
             <div class="ml-4">
-                <div class="text-xl font-bold text-gray-900 dark:text-white"></div>
+                <div class="text-xl font-bold text-gray-900 dark:text-white">{{$mostCategory ?? 'Pertanyaan Umum'}}</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">
                 Most Category</div>
             </div>

@@ -31,8 +31,8 @@ export default function Content() {
         },
         {
             name: "M. Arya Suherman",
-            university: "Universitas Micro Skill",
-            img: "/static/team/arya4.png",
+            university: "Universitas Mikroskil",
+            img: "/static/team/arya.png",
             aos: "fade-right",
         },
         {
