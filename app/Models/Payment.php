@@ -15,6 +15,7 @@ class Payment extends Model
         'description',
         'medical_record_id',
         'status',
-        'total_amount'
+        'total_amount',
+        'token'
     ];
 }

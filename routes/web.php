@@ -28,6 +28,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
+use App\Models\Invoice;
 use App\Models\PrescriptionItem;
 
 // Route::prefix('/inertia')->group(function () {
@@ -161,9 +162,9 @@ Route::middleware(['auth', 'role:user'])->prefix('/dashboard/user/preview')->gro
     // })->name('dashboard.show.user');
     Route::prefix('/invoice')->group(function () {
         Route::get('/{invoiceNumber}', [InvoiceController::class, 'pay'])->name('invoice.pay');
-        Route::post('/payment', [InvoiceController::class, 'payment'])->name('invoice.payment');
     });
 });
+
 
 // Doctor Role
 Route::middleware(['auth', 'role:doctor'])->prefix('/dashboard/doctor/workspace')->group(function () {
@@ -250,6 +251,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
     });
 });
 
-
 // Get user details
 Route::middleware(['auth'])->get('/user', [UserController::class, 'getUser'])->name('user.get');
+
+Route::get('/callback/success', [InvoiceController::class, 'callbackMidtrans']);
