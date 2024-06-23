@@ -31,7 +31,7 @@
 <body class="bg-gray-100">
     <div class="flex items-center justify-center min-h-screen">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl flex">
-            <div class="hidden md:block w-1/2 bg-cover bg-center rounded-l-lg" style="background-image: url('{{ asset('static/reset-password.jpg') }}');"></div>
+            <div class="hidden md:block w-1/2 bg-cover bg-center rounded-l-lg bg-url[('static/reset-password.jpg')]"></div>
             <div class="w-full md:w-1/2 p-8">
                 <div class="flex justify-center mb-6">
                     <img src="{{ asset('static/logo.png') }}" alt="Logo" class="h-16 w-16">

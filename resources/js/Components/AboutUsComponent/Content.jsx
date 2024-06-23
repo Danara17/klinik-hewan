@@ -14,7 +14,7 @@ export default function Content() {
         {
             name: "Danara Dhasa Caesa",
             university: "Universitas 17 Agustus 1945 Surabaya",
-            img: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+            img: "/static/Team/danara.png",
             aos: "fade-right",
         },
         {
@@ -26,19 +26,19 @@ export default function Content() {
         {
             name: "Geraldi Nathan",
             university: "Universitas Muhammadiyah Malang",
-            img: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+            img: "/static/team/geraldi.jpg",
             aos: "fade-left",
         },
         {
             name: "M. Arya Suherman",
             university: "Universitas Micro Skill",
-            img: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+            img: "/static/team/arya4.png",
             aos: "fade-right",
         },
         {
             name: "Jesia Esa Christanti",
             university: "Universitas Terbuka Yogyakarta",
-            img: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+            img: "/static/team/jesia.jpg",
             aos: "fade-left",
         },
     ];

@@ -8,14 +8,27 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import ReactPaginate from "react-paginate";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function ArticleContent({ posts, searchQuery }) {
     const [query, setQuery] = useState(searchQuery || "");
+    const [currentPage, SetCurrentPage] = useState(0);
+    const articlesPerPage = 5;
 
     const handleSearch = (e) => {
         e.preventDefault();
         Inertia.get("/search", { query });
     };
+
+    const handlePageClick = (data) => {
+        SetCurrentPage(data.selected);
+    };
+
+    const offset = currentPage * articlesPerPage;
+    const currentPosts = posts.slice(offset, offset + articlesPerPage);
+    const pageCount = Math.ceil(posts.length / articlesPerPage);
+
     return (
         <>
             <div className="py-20">
@@ -34,13 +47,13 @@ export default function ArticleContent({ posts, searchQuery }) {
                     </form>
 
                     <div className="grid grid-cols-1 gap-3">
-                        {posts.map((post) => (
+                        {currentPosts.map((post) => (
                             <>
                                 <div key={post.id} className=" gap-3">
                                     <div className="flex flex-col">
                                         <div className="grid gap-3">
                                             <div className="flex items-center gap-3 lg:mt-3">
-                                                <img
+                                                <LazyLoadImage
                                                     src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1760&amp;q=80"
                                                     alt="author"
                                                     className="rounded-full w-9 "
@@ -73,7 +86,7 @@ export default function ArticleContent({ posts, searchQuery }) {
                                                         </div>
 
                                                         <div className="flex-shrink-0 ">
-                                                            <img
+                                                            <LazyLoadImage
                                                                 src={`http://localhost:8000/storage/images/${post.image}`}
                                                                 alt=""
                                                                 className="hidden lg:inline lg:w-32 lg:h-20 object-cover"
@@ -119,6 +132,31 @@ export default function ArticleContent({ posts, searchQuery }) {
                             </>
                         ))}
                     </div>
+
+                    <ReactPaginate
+                        previousLabel={"<"}
+                        nextLabel={">"}
+                        breakLabel={"..."}
+                        breakClassName={"break-me"}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName={"flex justify-center gap-3 mt-8"}
+                        subContainerClassName={"pages pagination"}
+                        activeClassName={"bg-main text-white"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={
+                            "px-3 border  hover:bg-gray-200 hover:text-main"
+                        }
+                        previousClassName={"page-item"}
+                        previousLinkClassName={
+                            "px-3 border hover:bg-gray-200 hover:text-main"
+                        }
+                        nextClassName={"page-item"}
+                        nextLinkClassName={"px-3 border  hover:bg-gray-200"}
+                        breakLinkClassName={"px-3 border  hover:bg-gray-200"}
+                    />
                 </div>
             </div>
         </>
