@@ -73,9 +73,9 @@ class GoogleController extends Controller
             $address = $peopleUser['addresses'][0]['formattedValue'] ?? null;
             $phone = $peopleUser['phoneNumbers'][0]['value'] ?? null;
 
-            // Mencatat alamat dan nomor telepon untuk tujuan debugging
-            Log::info('Parsed address:', ['address' => $address]);
-            Log::info('Parsed phone:', ['phone' => $phone]);
+            // // Mencatat alamat dan nomor telepon untuk tujuan debugging
+            // Log::info('Parsed address:', ['address' => $address]);
+            // Log::info('Parsed phone:', ['phone' => $phone]);
 
             // Melanjutkan proses autentikasi
             $user = User::where('email', $googleUser['email'])->first();
@@ -109,7 +109,7 @@ class GoogleController extends Controller
             return redirect()->route('dashboard.show.user');
         } catch (\Exception $e) {
             // Mencatat kesalahan autentikasi dan mengarahkan pengguna kembali ke halaman login
-            Log::error('Google authentication error:', ['error' => $e->getMessage()]);
+            // Log::error('Google authentication error:', ['error' => $e->getMessage()]);
             return redirect()->route('auth.show.login')->with('error', 'Gagal melakukan autentikasi Google.');
         }
     }
