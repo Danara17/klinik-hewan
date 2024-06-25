@@ -65,10 +65,10 @@
                             dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" required="">
                         </div>
                         <div>
-                            <span class="font-medium">
+                            <span class="font-light">
                                 sudah punya akun?
                             </span>
-                            <span class="font-semibold">
+                            <span class="font-medium">
                                 <a href="/login" class="hover:underline">
                                     Login
                                 </a>

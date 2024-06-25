@@ -16,7 +16,7 @@
         </div>
     </div>
     @empty
-    <div class=" bg-white ">
+    <div class=" dark:bg-gray-700 dark:text-white ">
         <p class="text-lg">Tidak ada artikel yang relevan.</p>
     </div>
     @endforelse

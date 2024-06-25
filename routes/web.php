@@ -137,7 +137,7 @@ Route::middleware(['auth', 'role:author'])->prefix('/dashboard/author/workspace'
 
     // Dashboard
     Route::get('/categories/data', [CategoriesController::class, 'getCategoryData'])->name('categories.data');
-    Route::get('/dashboard', [CategoriesController::class, 'dashboard'])->name('dashboard');
+    // Route::get('/dashboard', [CategoriesController::class, 'dashboard'])->name('dashboard');
 
     // Category
     Route::resource('category', CategoriesController::class);
