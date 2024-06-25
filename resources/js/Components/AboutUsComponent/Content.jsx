@@ -20,7 +20,7 @@ export default function Content() {
         {
             name: "Muhamad Rafi Prabowo",
             university: "Politeknik Negeri Malang",
-            img: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+            img: "/static/team/rafi.jpeg",
             aos: "zoom-out",
         },
         {
