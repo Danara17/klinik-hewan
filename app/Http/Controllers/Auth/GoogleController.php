@@ -84,7 +84,7 @@ class GoogleController extends Controller
                 // Memperbarui data pengguna jika diperlukan
                 $user->update([
                     'name' => $googleUser['name'],
-                    'address' => $address ?? 'Alamat tidak tersedia', // Nilai default untuk alamat
+                    'address' => $address ?? 'Alamat tidak tersedia', 
                     'phone' => $phone ?? $user->phone,
                 ]);
                 Auth::login($user);
@@ -96,8 +96,8 @@ class GoogleController extends Controller
                     'email_verified_at' => now(),
                     'password' => bcrypt(uniqid()),
                     'role' => 'user',
-                    'address' => $address ?? 'Alamat tidak tersedia', // Nilai default untuk alamat
-                    'phone' => $phone ?? 'Nomor telepon tidak tersedia', // Nilai default untuk nomor telepon
+                    'address' => $address ?? 'Alamat tidak tersedia',
+                    'phone' => $phone ?? 'Nomor telepon tidak tersedia',
                 ];
 
                 // Membuat pengguna baru
