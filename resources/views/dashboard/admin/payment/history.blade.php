@@ -94,9 +94,8 @@
         </div>
     @endif
 
-
     <div class="overflow-x-auto dark:text-white">
-        <table id="myTable" class="table-auto min-w-full dark:bg-gray-800">
+        <table id="historyTable" class="table-auto min-w-full dark:bg-gray-800">
             <thead>
                 <tr>
                     <th class="px-4 py-2">ID</th>
@@ -104,7 +103,7 @@
                     <th class="px-4 py-2">Status</th>
                     <th class="px-4 py-2">Metode</th>
                     <th class="px-4 py-2">Total Amount</th>
-                    <th class="px-4 py-2">Ops</th>
+                    <th class="px-4 py-2">Transaction Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,53 +114,13 @@
                         <td>{{ $item->status }}</td>
                         <td>{{ $item->metode_pembayaran }}</td>
                         <td>Rp. {{ number_format($item->total_amount, 0, '', '.') }}</td>
-                        <td>
-                            <button id="dropdownTransaction-{{ $item->id }}"
-                                data-dropdown-toggle="dropdownTrans-{{ $item->id }}"
-                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button">
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 4 15">
-                                    <path
-                                        d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                                </svg>
-                            </button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdownTrans-{{ $item->id }}"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownTransaction-{{ $item->id }}">
-                                    @if ($item->status == 'waiting')
-                                        <li>
-                                            <form action="{{ route('payment.confirm') }}" method="post">
-                                                @csrf
-                                                <input type="text" value="{{ $item->id }}" name="id" hidden>
-                                                <input type="text" value="{{ $item->medical_record_id }}"
-                                                    name="med_id" hidden>
-                                                <button type="submit"
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Confirm
-                                                    Transaction</button>
-                                            </form>
-                                        </li>
-                                    @endif
-                                    <li>
-                                        <a href=""
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-                                    </li>
-                                    <li>
-                                        <a href=""
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download
-                                            Excel</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                        <td>{{ $item->created_at->format('d M Y H:i') }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-@endsection()
+@endsection
 
 @section('script-js')
     <script src="{{ url('https://cdn.datatables.net/2.0.5/js/dataTables.js') }}"></script>
@@ -173,6 +132,9 @@
         html.setAttribute('data-bs-theme', prefers);
         $(document).ready(function() {
             $('#myTable').DataTable({
+                lengthChange: false,
+            });
+            $('#historyTable').DataTable({
                 lengthChange: false,
             });
         });

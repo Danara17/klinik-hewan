@@ -39,10 +39,27 @@
                     <span class="mr-2">
                         {{ $item->pet->name }}
                     </span>
-                    <span
-                        class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                        menunggu pemeriksaan anda
-                    </span>
+                    @if ($item->status_perawatan == 'diperiksa')
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                            Menunggu Pemeriksaan Anda
+                        </span>
+                    @elseif($item->status_perawatan == 'sudah_diperiksa')
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                            Sudah Anda Periksa
+                        </span>
+                    @elseif($item->status_perawatan == 'dirawatan')
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                            Sedang Dirawat
+                        </span>
+                    @elseif($item->status_perawatan == 'sedang')
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                            Perawatan Telah Selesai
+                        </span>
+                    @endif
                 </div>
                 <div class="text-base  text-gray-600 dark:text-white">
                     <strong>Keluhan: </strong> {{ $item->complaint }}

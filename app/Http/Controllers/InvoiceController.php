@@ -75,6 +75,7 @@ class InvoiceController extends Controller
         $new_payment->status = 'waiting';
         $new_payment->payment_date = now();
         $new_payment->total_amount = $request->total_amount;
+        $new_payment->metode_pembayaran = '';
         $new_payment->save();
 
         // Midtrans
@@ -157,6 +158,9 @@ class InvoiceController extends Controller
                 // Perbarui status invoice dan rekam medis
                 Invoice::where('medical_record_id', $medicalRecordId)->update(['status' => 'lunas']);
                 MedicalRecord::where('id', $medicalRecordId)->update(['status_pembayaran' => 'menunggu_konfirmasi']);
+                Payment::where('medical_record_id', $medicalRecordId)->update([
+                    'metode_pembayaran' => $request->payment_type,
+                ]);
                 break;
             case 'expire':
                 Log::info('Transaksi kadaluwarsa', ['order_id' => $request->order_id]);

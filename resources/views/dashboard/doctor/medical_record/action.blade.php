@@ -29,7 +29,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{ route('medical_record.action', $id) }}"
+                        <a href="{{ route('medical_record.action', $data->id) }}"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Action</a>
                     </div>
                 </li>
@@ -39,42 +39,25 @@
 
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-500">
 
-    <form action="" method="POST">
+    <form action="{{ route('medical_record.set_status') }}" method="POST">
         @csrf
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <tbody>
-                <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
+                <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         Check Date
                     </th>
                     <td class="px-6 py-4">
-                        {{ $item->check_date }}
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
+                        {{ $data->check_date }}
                     </td>
                 </tr>
-                <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
+                <tr class="bg-gray-50 dark:bg-gray-700 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         Owner
                     </th>
                     <td class="px-6 py-4">
-                        {{ $item->pet->owner->name }}
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-
+                        {{ $data->pet->owner->name }}
                     </td>
                 </tr>
                 <tr class="bg-white dark:bg-gray-800">
@@ -82,30 +65,15 @@
                         Pet
                     </th>
                     <td class="px-6 py-4">
-                        {{ $item->pet->name }}
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-                    </td>
-                    <td class="px-6 py-4">
+                        {{ $data->pet->name }}
                     </td>
                 </tr>
-                <tr class="bg-white dark:bg-gray-800">
+                <tr class="bg-gray-50 dark:bg-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         Complaints
                     </th>
                     <td class="px-6 py-4">
-                        {{ $item->complaint }}
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
+                        {{ $data->complaint }}
                     </td>
                 </tr>
                 <tr class="bg-white dark:bg-gray-800">
@@ -113,103 +81,64 @@
                         Doctor
                     </th>
                     <td class="px-6 py-4">
-                        {{ $item->doctor->name }}
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
+                        {{ $data->doctor->name }}
                     </td>
                 </tr>
-                <tr class="bg-white dark:bg-gray-800">
+                <tr class="bg-gray-50 dark:bg-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Diagnosa
+                        Diagnosis
                     </th>
                     <td class="px-6 py-4">
-                        @if ($item->diagnosis == null || $item->diagnosis == '')
+                        @if ($data->diagnosis == null || $data->diagnosis == '')
                             <span
                                 class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
                                 Belum mengisi diagnosa
                             </span>
                         @else
-                            {{ $item->diagnosis }}
+                            {{ $data->diagnosis }}
                         @endif
                     </td>
-
+                </tr>
+                <tr class="bg-white dark:bg-gray-800">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Status
+                    </th>
                     <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
-
-                    </td>
-                    <td class="px-6 py-4">
+                        <select id="status" name="status_perawatan" required
+                            class="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="" disabled selected>Select status</option>
+                            <option value="diperiksa" @if ($data->status_perawatan == 'diperiksa') selected @endif>
+                                Sedang Di Periksa
+                            </option>
+                            <option value="sudah_diperiksa" @if ($data->status_perawatan == 'sudah_diperiksa') selected @endif>
+                                Sudah Di Periksa
+                            </option>
+                            <option value="dirawat" @if ($data->status_perawatan == 'dirawat') selected @endif>
+                                Sedang Di Rawat
+                            </option>
+                            <option value="selesai" @if ($data->status_perawatan == 'selesai') selected @endif>
+                                Selesai
+                            </option>
+                        </select>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="mb-3">
-            <div class="mb-3">
-                <label for="check_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Check Date
-                </label>
-                <input type="date" id="check_date" name="check_date" value="{{ $item->check_date }}" disabled
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="owner_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Owner / Pemilik
+        {{-- <div class="mb-3">
+            <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Status <span class="text-red-500">*</span>
             </label>
-            <input type="text" id="owner_id" name="owner_id" value="{{ $item->pet->owner->name }}" disabled
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        </div>
+            <select id="status" name="status" required
+                class="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="" disabled selected>Select status</option>
+                <option value="Pending" @if ($data->status == 'Pending') selected @endif>Pending</option>
+                <option value="Completed" @if ($data->status == 'Completed') selected @endif>Completed</option>
+                <option value="Cancelled" @if ($data->status == 'Cancelled') selected @endif>Cancelled</option>
+            </select>
+        </div> --}}
 
-        <div class="mb-3">
-            <label for="pet_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Pet
-            </label>
-            <input type="pet_id" id="pet_id" name="pet_id" value="{{ $item->pet->name }}" disabled
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <div class="flex justify-end">
-                <div class="text-black dark:text-white mr-2">
-                    Update pet?
-                </div>
-                <a href="{{ route('pet.check', $item->pet->id) }}" class="text-blue-500">klik sini</a>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="complaints" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Complaints
-            </label>
-            <textarea id="complaints" rows="4" name="complaints" disabled
-                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Ketik disini...">{{ $item->complaint }}</textarea>
-        </div>
-
-        <div class="mb-3">
-            <label for="doctor_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Doctor Specialize
-            </label>
-            <input type="text" id="doctor_id" name="doctor_id" value="{{ $item->doctor->name }}" disabled
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        </div>
-
-        <div class="mb-3">
-            <label for="diagnosis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Diagnosis <span class="text-red-500">*</span>
-            </label>
-            <textarea id="diagnosis" rows="4" name="diagnosis" required
-                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Diagnosis ...">{{ $item->diagnosis }}</textarea>
-        </div>
-
-        <input type="text" value="{{ $item->id }}" name="id" hidden>
+        <input type="text" value="{{ $data->id }}" name="id" hidden>
 
         <div class="flex justify-end my-10">
             <button type="submit"
@@ -223,47 +152,14 @@
 
 @section('script-js')
     <script>
-        var currentStep = 1;
-
-        function goToStep(step) {
-            var forms = document.querySelectorAll('form');
-            if (step < 1 || step > forms.length) return;
-
-            forms.forEach(function(form) {
-                form.classList.add('hidden');
-            });
-
-            document.getElementById('formStep' + step).classList.remove('hidden');
-            currentStep = step;
-        }
-
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = String(now.getMonth() + 1).padStart(2, '0');
-        var day = String(now.getDate()).padStart(2, '0');
-        var today = year + '-' + month + '-' + day;
-
-        document.getElementById('check_date').value = today;
-    </script>
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var ownerSelect = document.getElementById('owner_id');
-            var petSelect = document.getElementById('pet_id');
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = String(now.getMonth() + 1).padStart(2, '0');
+            var day = String(now.getDate()).padStart(2, '0');
+            var today = year + '-' + month + '-' + day;
 
-            ownerSelect.addEventListener('change', function() {
-                // Enable pet select
-                petSelect.removeAttribute('disabled');
-
-                // Filter pets based on selected owner
-                var selectedOwnerId = ownerSelect.value;
-                Array.from(petSelect.options).forEach(function(option) {
-                    if (option.dataset.ownerId === selectedOwnerId || option.value === '') {
-                        option.style.display = 'block';
-                    } else {
-                        option.style.display = 'none';
-                    }
-                });
-            });
+            document.getElementById('check_date').value = today;
         });
     </script>
 @endsection

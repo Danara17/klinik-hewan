@@ -198,23 +198,33 @@
                                         <a href="{{ route('medical_record.show', $item->id) }}"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lihat</a>
                                     </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change
-                                            Status</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('invoice.create', $item->id) }}"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Invoice</a>
-                                    </li>
+
+                                    @if ($item->status_pembayaran == 'belum_disetel')
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                Change Status</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('medical_record.bayar', $item->id) }}"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                Bayar Offline</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('invoice.create', $item->id) }}"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Kirim
+                                                Invoice</a>
+                                        </li>
+                                    @endif
+
                                 </ul>
                             </div>
                         </td>

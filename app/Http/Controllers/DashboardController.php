@@ -39,10 +39,14 @@ class DashboardController extends Controller
             $job = MedicalRecord::where('status_perawatan', 'diperiksa')
                 ->where('doctor_id', $info_doctor->id)
                 ->get();
+            $jobRawat = MedicalRecord::where('status_perawatan', 'dirawat')
+                ->where('doctor_id', $info_doctor->id)
+                ->get();
             return view('dashboard.doctor.index', [
                 'avatar' => $avatar,
                 'page_title' => $title,
-                'job' => $job
+                'job' => $job,
+                'jobRawat' => $jobRawat
             ]);
             // return Inertia::render('Dashboard/Doctor/Index', [
             //     'avatar' => $avatar,

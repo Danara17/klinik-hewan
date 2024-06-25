@@ -29,6 +29,7 @@ use App\Http\Controllers\Inertia\Auth\InertiaAuthController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Invoice;
+use App\Models\Payment;
 use App\Models\PrescriptionItem;
 
 // Route::prefix('/inertia')->group(function () {
@@ -177,6 +178,7 @@ Route::middleware(['auth', 'role:doctor'])->prefix('/dashboard/doctor/workspace'
         Route::post('/diagnosis', [MedicalRecordController::class, 'diagnosis'])->name('medical_record.diagnosis');
         Route::get('/check/{id}', [MedicalRecordController::class, 'check'])->name('medical_record.check');
         Route::get('/action/{id}', [MedicalRecordController::class, 'action'])->name('medical_record.action');
+        Route::post('/set_action', [MedicalRecordController::class, 'set_action'])->name('medical_record.set_status');
     });
 
     // Prescription
@@ -211,8 +213,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
 
     Route::prefix('/transaction')->group(function () {
         Route::get('', [PaymentController::class, 'index'])->name('payment.index');
+        Route::post('/bayar-offline', [PaymentController::class, 'bayar'])->name('payment.offline');
         Route::get('/create', [PaymentController::class, 'create'])->name('payment.create');
         Route::post('/confirm', [PaymentController::class, 'confirm'])->name('payment.confirm');
+        Route::get('/history', [PaymentController::class, 'history'])->name('payment.history');
     });
 
     // Admin
@@ -233,6 +237,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('/dashboard')->group(function 
         Route::get('/view/{id}', [MedicalRecordController::class, 'show'])->name('medical_record.show');
         Route::get('/create', [MedicalRecordController::class, 'create'])->name('medical_record.create');
         Route::post('/store', [MedicalRecordController::class, 'store'])->name('medical_record.store');
+        Route::get('/bayar/{id}', [MedicalRecordController::class, 'bayar'])->name('medical_record.bayar');
     });
 
     // Master

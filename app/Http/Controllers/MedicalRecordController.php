@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\MedicalRecord;
 use App\Models\Pet;
+use App\Models\PrescriptionItem;
 use App\Models\User;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Http\Request;
@@ -142,8 +143,13 @@ class MedicalRecordController extends Controller
 
     public function action(Request $request, string $id)
     {
+        $data = MedicalRecord::findOrFail($id);
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Medical Record Action';
         return view('dashboard.doctor.medical_record.action', [
-            'id' => $id
+            'data' => $data,
+            'avatar' => $avatar,
+            'page_title' => $title,
         ]);
     }
 
@@ -156,4 +162,26 @@ class MedicalRecordController extends Controller
         return redirect()->route('medical_record.list')->with('success', 'Berhasil mengupdate diagnosis terbaru.');
     }
 
+    public function set_action(Request $request)
+    {
+        // dd($request->all());
+        MedicalRecord::where('id', $request->id)->update([
+            'status_perawatan' => $request->status_perawatan
+        ]);
+        return redirect()->route('medical_record.list')->with('success', 'Status Rekam Medis Berubah');
+    }
+
+    public function bayar(Request $request, string $id)
+    {
+        $avatar = Gravatar::get(auth()->user()->email);
+        $title = 'Medical Record Bayar';
+        $data = MedicalRecord::findOrFail($id);
+        $prescriptions = PrescriptionItem::with('inventoryItem')->where('medical_record_id', $id)->get();
+        return view('dashboard.admin.medical_record.bayar', [
+            'avatar' => $avatar,
+            'page_title' => $title,
+            'data' => $data,
+            'prescriptions' => $prescriptions
+        ]);
+    }
 }
